@@ -19,17 +19,14 @@
  */
 
 export const siteConfig = {
-  name: 'Libra AI',
-  url: process.env.NEXT_PUBLIC_APP_URL || 'https://Libra.dev',
-  getStartedUrl: 'https://Libra.dev',
-  ogImage: 'https://libra.dev/opengraph-image.png',
-  description:
-    'Libra is a platform for building AI-powered applications.',
+  name: 'Forge',
+  url: process.env.NEXT_PUBLIC_APP_URL || 'https://forge.tmidev.net',
+  getStartedUrl: 'https://forge.tmidev.net',
+  ogImage: 'https://forge.tmidev.net/opengraph-image.png',
+  description: 'TRA internal AI app builder — scaffold, prototype, and ship.',
   links: {
-    twitter: 'https://twitter.com/nextify2024',
-    github: 'https://github.com/nextify-limited/libra',
-    email: 'mailto:contact@libra.dev',
-    forum: 'https://forum.libra.dev',
+    github: 'https://github.com/TridentMarketing/forge',
+    email: 'mailto:tech@travelresorts.com',
   },
 }
 

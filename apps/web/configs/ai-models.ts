@@ -51,14 +51,14 @@ export const AI_MODELS: AIModel[] = [
     name: 'Claude 4.0 Sonnet',
     icon: '/anthropic.svg',
     provider: 'anthropic',
-    requiredPlan: PLAN_TYPES.PRO,
+    requiredPlan: PLAN_TYPES.FREE,
   },
   {
     id: 'gemini-2-5-pro',
     name: 'Gemini 2.5 Pro',
     icon: '/google.svg',
     provider: 'google',
-    requiredPlan: PLAN_TYPES.PRO,
+    requiredPlan: PLAN_TYPES.FREE,
   },
 ]
 

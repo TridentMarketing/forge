@@ -134,11 +134,6 @@ const getNavMainItems = (userRole?: string) => {
       icon: UsersIcon,
     },
     {
-      title: m['dashboard.sidebar.navigation.billing'](),
-      url: '/dashboard/billing',
-      icon: CreditCardIcon,
-    },
-    {
       title: m['dashboard.sidebar.navigation.session'](),
       url: '/dashboard/session',
       icon: MonitorSmartphoneIcon,

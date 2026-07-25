@@ -99,19 +99,16 @@ async function authBuilder() {
           advanced: {
             crossSubDomainCookies: {
               enabled: true,
-              domain: '.libra.dev',
+              domain: '.tmidev.net',
             },
           },
           // Configure trusted origins for cross-subdomain authentication
           trustedOrigins: [
-            'https://libra.dev',
-            'https://cdn.libra.dev',
-            'https://deploy.libra.dev',
-            'https://dispatcher.libra.dev',
-            'https://auth.libra.dev',
-            'https://api.libra.dev',
-            'https://docs.libra.dev',
-            'https://web.libra.dev',
+            'https://forge.tmidev.net',
+            'https://cdn.forge.tmidev.net',
+            'https://deploy.forge.tmidev.net',
+            'https://dispatcher.forge.tmidev.net',
+            'https://auth.forge.tmidev.net',
             // Development origins
             'http://localhost:3000',
             'http://localhost:3004',
@@ -170,7 +167,7 @@ export const auth = betterAuth({
         advanced: {
           crossSubDomainCookies: {
             enabled: true,
-            domain: '.libra.dev',
+            domain: '.tmidev.net',
           },
         },
       }),

@@ -21,8 +21,8 @@
 import type { Metadata } from 'next/types'
 
 export const METADATA = {
-  title: 'Libra - Code Interpreting for AI apps',
-  description: 'Open-source  for AI code execution',
+  title: 'Forge — TRA Internal App Builder',
+  description: 'AI-powered app builder for the TRA tech team.',
 }
 
 function createMetadata(override: Metadata): Metadata {
