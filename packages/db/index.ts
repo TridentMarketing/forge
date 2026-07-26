@@ -31,10 +31,13 @@ import * as projectSchema from './schema/project-schema'
 export const schema = { ...projectSchema, ...components }
 
 export const getDbAsync = async () => {
-  let connectionString: string | undefined
-  if ((process.env['NODE_ENV'] as string) === 'development') {
-    connectionString = env.POSTGRES_URL
-  } else {
+  // Prefer a direct Postgres connection string (POSTGRES_URL) whenever one is
+  // configured — Forge has no Hyperdrive binding provisioned (it's a
+  // connection-pooling optimization, not a hard requirement at this scale).
+  // Fall back to the Cloudflare HYPERDRIVE binding only if POSTGRES_URL isn't set,
+  // so environments that do configure Hyperdrive keep working unchanged.
+  let connectionString: string | undefined = env.POSTGRES_URL
+  if (!connectionString) {
     const { env: cfEnv } = await getCloudflareContext({ async: true })
     // Type assertion for HYPERDRIVE property
     const hyperdrive = (cfEnv as any).HYPERDRIVE
