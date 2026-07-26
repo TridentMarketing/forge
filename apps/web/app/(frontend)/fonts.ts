@@ -18,10 +18,19 @@
  *
  */
 
-import { Mona_Sans } from 'next/font/google'
+import { EB_Garamond, Inter } from 'next/font/google'
 
-export const mono = Mona_Sans({
+export const sans = Inter({
   subsets: ['latin'],
-  variable: '--font-mono-sans',
-  weight: ['400', '700'],
+  variable: '--font-sans-app',
+  display: 'swap',
+})
+
+// Brand serif — reserved for the Forge wordmark, login, and large empty states
+export const serif = EB_Garamond({
+  subsets: ['latin'],
+  variable: '--font-serif-brand',
+  weight: ['400', '500', '600'],
+  style: ['normal', 'italic'],
+  display: 'swap',
 })

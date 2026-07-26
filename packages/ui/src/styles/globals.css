@@ -23,7 +23,6 @@
 @import "./utils.css";
 @import "./theme.css";
 @import "./variables.css";
-@import "./quota.css";
 @import "tw-animate-css";
 @plugin 'tailwind-scrollbar';
 @source "../../../../packages/ui/src/**/*.{js,ts,jsx,tsx}";

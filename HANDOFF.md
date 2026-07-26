@@ -17,7 +17,14 @@ Internal AI app builder for TRA tech team. Fork of [Libra AI](https://github.com
 ## What's already done
 
 - [x] Forked to `TridentMarketing/forge`
-- [x] Branding swapped (Libra → Forge, libra.dev → tmidev.net)
+- [x] Branding swapped (Libra → Forge, libra.dev → tmidev.net) — config/infra pass
+- [x] TRA visual identity applied (branding branch): TRA diamond/compass mark + favicons across all apps, navy/gold/lavender theme in packages/ui, EB Garamond brand serif, light-first default
+- [x] Marketing surface removed: landing is now signed-in prompt entry (redirects to /login when signed out); Bento/Features/Pricing/FAQ/CTA/testimonials/contact deleted; login rebuilt GitHub-only with TRA lockup
+- [x] Paywall/quota/upgrade UI fully removed (upgrade modal, quota banners, billing components, /#price links). NOTE: Stripe backend routers in packages/api are still mounted — unmounting is a deliberate follow-up
+- [x] zh locale + Paraglide runtime machinery removed (single-locale en; compiled m[...] catalog kept); en.json rebranded and pruned (126 KB → 77 KB)
+- [x] Docs app de-fluffed (sponsorship system, opensource/community/pricing content deleted; usinglibra → usingforge)
+- [x] Generated-project template rebranded (fileStructure.ts, index.html titles). NOTE: Docker/e2b/daytona image tags still `*-libra` — renaming requires image rebuild
+- [x] Privacy/terms replaced with short TRA internal-use notices
 - [x] Billing/Stripe removed from UI and plugins
 - [x] All AI models unlocked (no plan gating)
 - [x] GitHub OAuth wired as sole auth method

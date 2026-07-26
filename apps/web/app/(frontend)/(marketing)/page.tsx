@@ -18,19 +18,16 @@
  *
  */
 
-import Bento from '@/components/marketing/bento'
-import CTA from '@/components/marketing/cta'
-import FAQ from '@/components/marketing/faq'
-import Features from '@/components/marketing/features'
+import { initAuth } from '@libra/auth/auth-server'
+import { headers } from 'next/headers'
+import { redirect } from 'next/navigation'
 import Footer from '@/components/marketing/footer'
 import Hero from '@/components/marketing/hero/index'
 import Navbar from '@/components/marketing/nav'
-import Pricing from '@/components/marketing/price'
-import { initAuth } from '@libra/auth/auth-server'
-import { headers } from 'next/headers'
 
 export default async function Home() {
-  // Check authentication status on server side
+  // Forge is internal-only: the root route is the prompt-to-build entry
+  // for signed-in users; everyone else goes to sign-in.
   let isAuthenticated = false
   try {
     const auth = await initAuth()
@@ -39,30 +36,20 @@ export default async function Home() {
       headers: headersList,
     })
     isAuthenticated = !!session?.user
-  } catch (error) {
-    // Default to unauthenticated if auth check fails
+  } catch {
     isAuthenticated = false
   }
 
+  if (!isAuthenticated) {
+    redirect('/login')
+  }
+
   return (
-    <main className='min-h-screen w-full overflow-hidden bg-[var(--background-landing)] text-[var(--foreground-landing)] '>
+    <main className='flex min-h-screen w-full flex-col bg-[var(--background-landing)] text-[var(--foreground-landing)]'>
       <Navbar isAuthenticated={isAuthenticated} />
-      <Hero />
-
-      <Bento />
-
-      {/*<Logos />*/}
-      {/*<Items />*/}
-      {/*<Stats />*/}
-
-      <Features />
-
-      <Pricing />
-
-      <FAQ />
-
-      <CTA />
-
+      <div className='flex-1'>
+        <Hero />
+      </div>
       <Footer />
     </main>
   )

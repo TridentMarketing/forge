@@ -12,18 +12,15 @@
     "templates": "Templates",
     "playground": "Playground",
     "start_coding": "Start Building",
-    "brand": "Libra AI",
+    "brand": "Forge",
     "toggleNavigation": "Toggle navigation menu",
     "logo_description": "Landing page template built with React, Shadcn/ui and Tailwind that you can copy/paste into your project."
   },
   "hero": {
-    "badge": "Built on Developer-Loved Tools",
-    "title": "Turn ideas into apps in",
-    "subtitle": "Brings your app ideas to life with AI, and deploys them to your domain.",
-    "cta_primary": "Start Free",
-    "cta_secondary": "View on GitHub",
+    "title": "Build something for TRA",
+    "subtitle": "Describe what you need. Forge scaffolds it, previews it live, and deploys it.",
     "form": {
-      "typewriter_base": "Ask Libra to create ",
+      "typewriter_base": "Ask Forge to create ",
       "placeholder": "A cozy reading tracker where bookworms can log their adventures...",
       "add_attachment": "Add image",
       "send": "Send",
@@ -34,32 +31,27 @@
     "examples": {
       "title": "App Ideas Examples",
       "subtitle": "Click any example to apply",
-      "buttons": {
-        "discord": "Discord",
-        "github": "Github",
-        "forum": "Community"
-      },
-      "productivity": "Productivity",
-      "social": "Social Media",
-      "health": "Health",
-      "task_manager": "Task Manager",
-      "task_manager_desc": "A cozy task tracker that feels more like a journal than work.",
-      "task_manager_preview": "Make productivity feel magical",
-      "note_taking": "Note Taking App",
-      "note_taking_desc": "A digital garden where ideas grow and connect in beautiful ways.",
-      "note_taking_preview": "Nurture your thoughts",
-      "interest_community": "Interest Community",
-      "interest_community_desc": "A cozy corner of the internet where quirky interests find their tribe.",
-      "interest_community_preview": "Find your creative kindred spirits",
-      "local_events": "Local Events",
-      "local_events_desc": "A platform to discover and organize local community events and activities.",
-      "local_events_preview": "Explore events around you",
-      "diet_tracker": "Diet Tracker",
-      "diet_tracker_desc": "A mindful eating companion that celebrates food joy, not restriction.",
-      "diet_tracker_preview": "Rediscover the pleasure of eating",
-      "fitness_plan": "Fitness Plan",
-      "fitness_plan_desc": "Movement that feels like play, not punishment, tailored to your unique body.",
-      "fitness_plan_preview": "Celebrate your body's awesome"
+      "guest": "Guest experience",
+      "booking_widget": "Site booking widget",
+      "booking_widget_desc": "A reservation request form for campsites with date range, site type, and party size",
+      "booking_widget_preview": "Form with availability calendar",
+      "activity_schedule": "Activity schedule",
+      "activity_schedule_desc": "A weekly resort activity schedule page guests can filter by day and category",
+      "activity_schedule_preview": "Filterable weekly calendar",
+      "operations": "Operations",
+      "occupancy_dashboard": "Occupancy dashboard",
+      "occupancy_dashboard_desc": "A dashboard showing site occupancy by resort with weekly trends",
+      "occupancy_dashboard_preview": "Charts by resort and week",
+      "maintenance_tracker": "Maintenance tracker",
+      "maintenance_tracker_desc": "A tracker for site maintenance requests with status, priority, and assignee",
+      "maintenance_tracker_preview": "Kanban-style request board",
+      "members": "Members",
+      "member_portal": "Member portal page",
+      "member_portal_desc": "A member account page showing membership tier, points, and upcoming stays",
+      "member_portal_preview": "Account overview layout",
+      "referral_form": "Referral form",
+      "referral_form_desc": "A referral form where members invite friends for a tour visit",
+      "referral_form_preview": "Short form with confirmation"
     },
     "fileUpload": {
       "deleteFailed": "File deletion failed",
@@ -71,186 +63,16 @@
     "projectCreate": {
       "success": "Project {name} created successfully!",
       "limitExceeded": "Failed to create project, limit may be exceeded"
-    },
-    "minutes": "minutes",
-    "title_minutes": "minutes"
-  },
-  "features": {
-    "title": "Powerful Features Developers Love",
-    "subtitle": "Built on modern tools with exceptional developer experience and user interface outputs.",
-    "auth_title": "Auto Package Installation",
-    "auth_description": "Intelligently detects and automatically installs required dependencies. No manual configuration needed.",
-    "payments_title": "Image Upload Functionality",
-    "payments_description": "Fully functional image upload with support for multiple formats and cloud storage integration.",
-    "database_title": "GitHub Auto-Commit",
-    "database_description": "Automatically sync code to GitHub repositories with version control and collaborative development support.",
-    "ui_title": "Visual Editor",
-    "ui_description": "Precise visual editor with real-time preview and code synchronization for accurate editing.",
-    "api_title": "Free Auto-Fix",
-    "api_description": "AI-powered automatic error detection and fixing to boost development efficiency.",
-    "deployment_title": "Custom Domain Deployment",
-    "deployment_description": "Deploy to custom domains with complete control over your application's access URL."
-  },
-  "pricing": {
-    "title": "Simple, transparent pricing",
-    "subtitle": "Choose the plan that's right for your business",
-    "title_default": "Pricing Plans",
-    "description_default": "Choose a plan that suits your needs, with features and support tailored to your requirements.",
-    "free_plan": "Free",
-    "free_price": "$0",
-    "free_period": "forever",
-    "free_description": "Perfect for getting started",
-    "pro_plan": "Pro",
-    "pro_price": "$29",
-    "pro_period": "per month",
-    "pro_description": "For growing businesses",
-    "enterprise_plan": "Enterprise",
-    "enterprise_price": "Custom",
-    "enterprise_period": "contact us",
-    "enterprise_description": "For large organizations",
-    "get_started": "Get Started",
-    "contact_sales": "Contact Sales",
-    "feature_users": "Up to {count} users",
-    "feature_projects": "Up to {count} projects",
-    "feature_storage": "{amount} storage",
-    "feature_support": "Email support",
-    "feature_priority_support": "Priority support",
-    "feature_custom": "Custom integrations",
-    "feature_sla": "SLA guarantee",
-    "loading": "Loading pricing plans...",
-    "error": "Error loading plan data.",
-    "forever_free": "Forever free",
-    "yearly": "Yearly",
-    "monthly": "Monthly",
-    "save_up_to": "Save up to {discount}%"
-  },
-  "testimonials": {
-    "title": "What our users say",
-    "subtitle": "Hear from developers who have built amazing products with our platform.",
-    "description": "Libra isn't just a tool—it's a complete development ecosystem designed for everyone—from beginners to pros.",
-    "user1": {
-      "name": "Sarah Johnson",
-      "role": "Crypto Investor",
-      "quote": "This platform has completely transformed how I manage my crypto investments. The tools are intuitive and powerful."
-    },
-    "user2": {
-      "name": "Michael Chen",
-      "role": "Day Trader",
-      "quote": "The real-time analytics and portfolio tracking features have given me an edge in my trading decisions."
-    },
-    "user3": {
-      "name": "Emma Davis",
-      "role": "Beginner Investor",
-      "quote": "As someone new to crypto, this platform made it easy to get started and learn the ropes."
     }
-  },
-  "faq": {
-    "title": "Frequently Asked Questions",
-    "subtitle": "Everything you need to know about the Libra AI platform",
-    "q1": "Is Libra open source?",
-    "a1": "Yes, this is the biggest difference from other AI building tools. Libra is core open source with transparent code, community-driven development, and no vendor lock-in.",
-    "q2": "What is Libra?",
-    "a2": "Libra is an AI-powered platform that transforms text descriptions into functional web applications. Built with React + shadcn/ui, supporting automated development workflows.",
-    "q3": "What's the difference from other AI building tools?",
-    "a3": "Libra is built on developer-loved tools, supports auto package installation, uses React + shadcn/ui, core open source, supports custom domain deployment, fully functional image upload, GitHub auto-commit, visual editor for precise editing, free auto-fix functionality, excellent UI/UX output, and production-ready results.",
-    "q4": "What's the pricing model?",
-    "a4": "Libra offers flexible pricing plans starting free. Core features are permanently free, with reasonable paid options for advanced features.",
-    "q5": "Who owns the code?",
-    "a5": "Users have complete ownership of generated code. You can download all files or sync to GitHub without any restrictions.",
-    "q6": "Do I need programming experience?",
-    "a6": "Not required. Libra is friendly to both developers and non-developers, providing intuitive interface and AI-assisted development."
-  },
-  "bento": {
-    "title": "Built on Developer-Loved Tools",
-    "description": "Built for developers who refuse compromises: core open source, modern tech stack, automated workflows, and actually usable outputs. Your code, your control, your freedom—exactly as it should be.",
-    "ai_coding": {
-      "title": "AI-Powered Code Generation",
-      "description": "Multi-model AI integration with Claude, Azure OpenAI, and Gemini. Natural language driven production-grade code generation with intelligent context awareness and best practice compliance."
-    },
-    "lightning_fast": {
-      "title": "Built with React + shadcn/ui",
-      "description": "Uses developers' favorite modern tech stack. Based on React 19, TypeScript, Tailwind CSS, and shadcn/ui component library, ensuring code quality and maintainability."
-    },
-    "complete_ownership": {
-      "title": "Core Open Source",
-      "description": "Unlike closed-source tools, Libra is core open source. You can view, modify, and extend every line of code. No black boxes, no vendor lock-in, true development freedom."
-    },
-    "performance_optimized": {
-      "title": "Custom Domain Deployment",
-      "description": "Deploy to your own domain with complete control over your application's access URL. No dependency on third-party platforms, truly own your product."
-    },
-    "tech_stack_freedom": {
-      "title": "Image Upload & GitHub Auto-Commit",
-      "description_1": "Fully functional image upload supporting multiple formats and cloud storage. Automatically sync code to GitHub repositories with version control support.",
-      "description_2": "Visual editor supports precise editing, free AI auto-fix functionality boosts development efficiency."
-    },
-    "community_driven": {
-      "title": "Excellent User Experience Output",
-      "description_1": "Product outputs are actually usable, not simple demos. Generated apps have complete functionality, excellent UI/UX design, and production-grade code quality.",
-      "description_2": "Open source community-driven, continuous improvement and innovation."
-    }
-  },
-  "cta": {
-    "title": "Ready to Start Building for Free?",
-    "subtitle": "Join the open source developer community and use Libra to transform ideas into truly usable products. Free forever, your code completely belongs to you.",
-    "button": "Start Building Free",
-    "secondary": "View Open Source Code"
   },
   "footer": {
-    "description": "Open source magic for creative developers who refuse to be boxed in.",
-    "product": "Product",
-    "features": "Features",
-    "pricing": "Pricing",
-    "changelog": "Changelog",
-    "company": "Company",
-    "about": "About",
     "contact": "Contact",
-    "blog": "Blog",
-    "careers": "Careers",
-    "resources": "Resources",
-    "documentation": "Documentation",
-    "support": "Support",
-    "community": "Community",
-    "discord": "Discord",
-    "twitter": "Twitter",
     "github": "Github",
     "legal": "Legal",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
-    "cookies": "Cookie Policy",
-    "copyright": "© 2025 Nextify Limited. All rights reserved.",
-    "copyright_nextify": "© 2025 Nextify Limited. All rights reserved",
-    "status": "Status",
-    "all_rights_reserved": "All rights reserved.",
-    "made_with_love": "Crafted with ❤️ by dreamers, for dreamers"
-  },
-  "contact": {
-    "page_title": "Contact Us",
-    "page_description": "We look forward to hearing your suggestions and needs. Please fill out the form below and our team will contact you as soon as possible.",
-    "form_name_label": "Name",
-    "form_name_placeholder": "Please enter your name",
-    "form_company_label": "Company",
-    "form_company_placeholder": "Please enter your company name",
-    "form_email_label": "Email",
-    "form_email_placeholder": "your.email@company.com",
-    "form_requirements_label": "Requirements",
-    "form_requirements_placeholder": "Please tell us your requirements, e.g., custom features, SSO integration, deployment needs, etc.",
-    "submit_button": "Submit",
-    "privacy_notice": "By submitting, you agree to our",
-    "privacy_policy": "Privacy Policy",
-    "enterprise_title": "Enterprise Custom Services",
-    "enterprise_support": "Dedicated Customer Support",
-    "enterprise_deployment": "Customized Deployment Solutions",
-    "enterprise_sso": "Single Sign-On (SSO) Integration",
-    "enterprise_security": "Data Security and Compliance Support",
-    "enterprise_training": "Professional Training and Consulting Services",
-    "other_contact_title": "Other Contact Methods",
-    "customer_support": "Customer Support",
-    "customer_support_email": "support@yourcompany.com",
-    "business_cooperation": "Business Cooperation",
-    "business_cooperation_email": "sales@yourcompany.com",
-    "media_inquiry": "Media Inquiry",
-    "media_inquiry_email": "press@yourcompany.com"
+    "copyright": "© 2026 Travel Resorts of America. All rights reserved.",
+    "all_rights_reserved": "All rights reserved."
   },
   "dashboard": {
     "my_projects": "My Projects",
@@ -547,11 +369,11 @@
         "install": {
           "title": "Install GitHub App",
           "subtitle": "Enable code export to your repositories",
-          "description": "Install the Libra GitHub App to enable repository access and code export",
+          "description": "Install the Forge GitHub App to enable repository access and code export",
           "button": "Install GitHub App",
           "installing": "Installing...",
           "required_title": "Installation Required",
-          "required_description": "Install the Libra GitHub App to enable repository access and code export.",
+          "required_description": "Install the Forge GitHub App to enable repository access and code export.",
           "error_popup_blocked": "Popup blocked. Please allow popups for this site and try again.",
           "error_installation_failed": "Failed to open GitHub App installation"
         },
@@ -614,7 +436,7 @@
           "step_create": "Create Repository",
           "step_push": "Export Code",
           "step_success": "GitHub Integration",
-          "description_install": "Install the Libra GitHub App to enable code export",
+          "description_install": "Install the Forge GitHub App to enable code export",
           "description_oauth": "Grant permission to access your GitHub repositories",
           "description_repositories": "Choose where to export your code",
           "description_create": "Automatically create a repository for your project",
@@ -659,12 +481,6 @@
           "privateProjectDescription": "This project is private and only visible to you and your team members.",
           "upgradeForPrivateProjects": "Upgrade to Pro to create private projects."
         },
-        "social": {
-          "share_on_x": "Share on X",
-          "share_on_facebook": "Share on Facebook",
-          "share_on_linkedin": "Share on LinkedIn",
-          "share_on_reddit": "Share on Reddit"
-        },
         "copy_link": {
           "title": "Or copy the link",
           "description": "Share this direct link to your project",
@@ -678,13 +494,7 @@
           "visibilityUpdateSuccess": "Project visibility updated successfully",
           "visibilityUpdateFailed": "Failed to update project visibility"
         },
-        "close": "Close dialog",
-        "share_text": {
-          "twitter": "Check out my project built with Libra AI!",
-          "linkedin_title": "My Project built with Libra AI",
-          "linkedin_summary": "Check out this amazing project I built using Libra AI!",
-          "reddit_title": "Check out my project built with Libra AI!"
-        }
+        "close": "Close dialog"
       }
     },
     "projectCard": {
@@ -890,8 +700,8 @@
   },
   "auth": {
     "email_form": {
-      "title": "Create an account or sign-In",
-      "subtitle": "You will receive a magic link in your email",
+      "title": "Sign in to Forge",
+      "subtitle": "Sign in with your TRA GitHub account",
       "github_button": "GitHub",
       "connecting": "Connecting...",
       "github_connecting": "Connecting to GitHub...",
@@ -909,7 +719,7 @@
       "retry_github_auth": "Retry GitHub authentication",
       "or_continue": "Or continue with",
       "email_label": "Email",
-      "email_placeholder": "nextify@libra.dev",
+      "email_placeholder": "you@travelresorts.com",
       "send_link": "Send me my link",
       "sending": "Sending...",
       "email_required": "Please enter a valid email address",
@@ -921,16 +731,6 @@
       "enter_code": "Enter the 6-digit code we sent to your email",
       "verifying": "Verifying...",
       "verify_button": "Verify and sign in"
-    },
-    "feature_showcase": {
-      "ai_powered_development": "AI-Powered Development",
-      "cloud_ide_environment": "Cloud IDE Environment",
-      "open_source_core": "Open Source Core",
-      "github_integration": "GitHub Integration",
-      "custom_domain_deployment": "Custom Domain Deployment",
-      "multi_model_ai_support": "Multi-Model AI Support",
-      "real_time_preview": "Real-Time Preview",
-      "welcome": "Welcome to Libra"
     },
     "oauth": {
       "continue_github": "Continue with GitHub",
@@ -1185,7 +985,7 @@
       "downloadAriaLabel": "Download the sandbox files",
       "downloading": "Downloading...",
       "downloadFailed": "Download failed. Please try again.",
-      "brand": "Libra AI Web Coding",
+      "brand": "Forge",
       "search": "Search",
       "switchToPreview": "Switch to preview mode",
       "switchToCode": "Switch to code mode",
@@ -1206,7 +1006,7 @@
       "switchModeTooltip": "Switch between code editor and preview mode",
       "share": "Share",
       "returnToDashboard": "Return to Dashboard",
-      "libraAltText": "Libra - AI Development Platform"
+      "logoAltText": "Forge — TRA internal app builder"
     },
     "errorDisplay": {
       "failedToLoad": "Failed to load file structure",
@@ -1511,7 +1311,7 @@
         "addDnsRecordsApex": "For apex domains, add the following A records. If your DNS provider supports CNAME flattening, you can also use CNAME records:",
         "addDnsRecordsSubdomain": "For subdomains, add the following CNAME records:",
         "cnameFlattening": "CNAME Flattening Alternative",
-        "cnameAlternative": "If your DNS provider supports CNAME flattening, you can also create a CNAME record pointing to customers.libra.sh",
+        "cnameAlternative": "If your DNS provider supports CNAME flattening, you can also create a CNAME record pointing to customers.forge.tmidev.net",
         "verificationFailed": "Verification failed. DNS changes may take up to 48 hours to take effect.",
         "ownershipVerified": "Domain ownership verified. Please configure the CNAME records above to complete setup.",
         "dnsHint": "DNS changes may take up to 48 hours to take effect. Click verify to check status.",
@@ -1845,7 +1645,7 @@
     }
   },
   "dashboard_nav": {
-    "title": "Libra"
+    "title": "Forge"
   },
   "chatPanel": {
     "main": {
@@ -2026,35 +1826,6 @@
       "allElementsCleared": "Cleared {count} selected elements"
     }
   },
-  "upgradeModal": {
-    "editMode": {
-      "title": "Upgrade Required",
-      "description": "Please upgrade to use edit mode.",
-      "features": {
-        "editCode": "Edit and modify code files",
-        "deployChanges": "Deploy changes instantly",
-        "unlimitedEdits": "Unlimited file edits"
-      }
-    },
-    "aiModel": {
-      "title": "Advanced AI Model Access",
-      "description": "Access to {model} requires upgrade.",
-      "features": {
-        "advancedModels": "Access to advanced AI models",
-        "unlimitedUsage": "Unlimited AI conversations",
-        "prioritySupport": "Priority support"
-      }
-    },
-    "projectLimit": {
-      "title": "Project Limit Reached",
-      "description": "Upgrade to create unlimited projects.",
-      "features": {
-        "unlimitedProjects": "Unlimited project creation",
-        "teamCollaboration": "Team collaboration features",
-        "advancedFeatures": "Advanced project features"
-      }
-    }
-  },
   "notFound": {
     "title": "404",
     "subtitle": "Page Not Found",
@@ -2074,315 +1845,6 @@
       "downloadSuccess": "Project files downloaded successfully",
       "sampleDownloadSuccess": "Sample project files downloaded successfully",
       "downloadFailed": "Download failed: {errorMessage}"
-    }
-  },
-  "privacy": {
-    "title": "Privacy Policy",
-    "lastUpdated": "Last updated: {date}",
-    "about": {
-      "title": "About This Privacy Policy",
-      "description": "Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information when you use our platform.",
-      "serviceDescription": "This Privacy Notice describes how and why we might access, collect, store, use, and/or share your personal information when you use our services, including when you:",
-      "usageScenarios": {
-        "website": "Visit our website {websiteUrl}, or any website of ours that links to this Privacy Notice",
-        "platform": "Use our AI development platform and tools",
-        "interaction": "Engage with us in other related ways, including any sales, marketing, or events"
-      }
-    },
-    "concerns": {
-      "title": "Questions or concerns?",
-      "description": "Reading this Privacy Notice will help you understand your privacy rights and choices. We are responsible for making decisions about how your personal information is processed. If you do not agree with our policies and practices, please do not use our Services. If you still have any questions or concerns, please contact us at {contactEmail}."
-    },
-    "tableOfContents": {
-      "title": "Table of Contents"
-    },
-    "sections": {
-      "informationCollection": {
-        "title": "Information Collection",
-        "shortDescription": "We may collect the following types of information when you use our platform.",
-        "personalInfo": {
-          "title": "Personal Information",
-          "description": "Name, email address, and other contact details when you sign up."
-        },
-        "usageData": {
-          "title": "Usage Data",
-          "description": "Information about how you interact with our platform, such as page visits and activity logs."
-        },
-        "contentData": {
-          "title": "Content Data",
-          "description": "Any projects, prompts, or other content you create using our platform."
-        }
-      },
-      "usage": {
-        "title": "Usage",
-        "shortDescription": "We use the collected data to provide, maintain, and improve our platform.",
-        "description": "We use the collected data to:",
-        "purposes": {
-          "platform": "Provide, maintain, and improve our platform",
-          "personalization": "Personalize your experience",
-          "communication": "Communicate with you regarding updates and support",
-          "security": "Ensure security and prevent fraud"
-        }
-      },
-      "dataSharingSecurity": {
-        "title": "Data Sharing & Security",
-        "shortDescription": "We are committed to protecting your information and being transparent about how we share data.",
-        "noMarketing": {
-          "title": "No Marketing Sales",
-          "description": "We do not sell or share your personal information with third parties for marketing purposes."
-        },
-        "trustedProviders": {
-          "title": "Trusted Service Providers",
-          "description": "We may share data with trusted service providers who assist in operating our platform."
-        },
-        "securityMeasures": {
-          "title": "Security Measures",
-          "description": "We implement industry-standard security measures to protect your information."
-        }
-      },
-      "cookiesTracking": {
-        "title": "Cookies & Tracking",
-        "shortDescription": "We use cookies and similar technologies to improve your experience.",
-        "description": "We use cookies and similar technologies to improve your experience. You can manage your cookie preferences in your browser settings.",
-        "analyticsTools": {
-          "title": "Analytics and User Experience Tools",
-          "description": "We use the following third-party analytics and user experience tools to collect and analyze data about how users interact with our Services:",
-          "ga4": {
-            "title": "Google Analytics 4 (GA4)",
-            "description": "We use Google Analytics 4 to analyze website traffic, user behavior, and performance metrics. This helps us understand how users interact with our Services and improve user experience. GA4 may collect information such as your IP address, browser type, pages visited, and time spent on our site."
-          },
-          "posthog": {
-            "title": "PostHog",
-            "description": "We use PostHog for product analytics and user experience optimization. PostHog helps us track user interactions, feature usage, and identify areas for improvement in our Services. This includes collecting data about user actions, session recordings (when enabled), and usage patterns."
-          }
-        },
-        "conclusion": "These analytics tools are essential for us to understand user needs, improve our Services, and provide a better user experience. The data collected is used solely for analytical purposes and service improvement."
-      }
-    },
-    "contact": {
-      "title": "Contact Us",
-      "description": "If you have questions or comments about this privacy policy, please contact us at {contactEmail}."
-    },
-    "updates": {
-      "title": "Policy Updates",
-      "description": "We may update this privacy policy from time to time. The updated version will be indicated by an updated revision date and the updated version will be effective as soon as it is accessible. We recommend that you review this privacy policy periodically to stay informed of how we are protecting your information."
-    },
-    "closing": {
-      "statement": "By using our platform, you agree to this Privacy Policy. We are committed to safeguarding your privacy and ensuring transparency in how your data is handled. Your trust is important to us, and we continuously strive to improve our security and data practices to offer a safe and seamless experience."
-    }
-  },
-  "terms": {
-    "title": "Terms of Service",
-    "lastUpdated": "Last updated: {date}",
-    "agreement": {
-      "title": "Agreement to Our Legal Terms",
-      "description": "We are Libra AI, providing AI development tools and services.",
-      "serviceDescription": "We operate the website {websiteUrl}, as well as any other related products and services that refer or link to these legal terms.",
-      "warning": "If you do not agree with all of these legal terms, then you are expressly prohibited from using the services and you must discontinue use immediately."
-    },
-    "tableOfContents": {
-      "title": "TABLE OF CONTENTS"
-    },
-    "sections": {
-      "ourServices": {
-        "title": "OUR SERVICES",
-        "content": {
-          "paragraph1": "The information provided when using the Services is not intended for distribution to or use by any person or entity in any jurisdiction or country where such distribution or use would be contrary to law or regulation or which would subject us to any registration requirement within such jurisdiction or country.",
-          "paragraph2": "The Services are not tailored to comply with industry-specific regulations (Health Insurance Portability and Accountability Act (HIPAA), Federal Information Security Management Act (FISMA), etc.), so if your interactions would be subjected to such laws, you may not use the Services. You may not use the Services in a way that would violate the Gramm-Leach-Bliley Act (GLBA)."
-        }
-      },
-      "intellectualProperty": {
-        "title": "INTELLECTUAL PROPERTY RIGHTS",
-        "ourPropertyTitle": "Our intellectual property",
-        "ourPropertyParagraph1": "We are the owner or the licensee of all intellectual property rights in our Services, including all source code, databases, functionality, software, website designs, audio, video, text, photographs, and graphics in the Services (collectively, the \\\"Content\\\"), as well as the trademarks, service marks, and logos contained therein (the \\\"Marks\\\").",
-        "ourPropertyParagraph2": "Our Content and Marks are protected by copyright and trademark laws (and various other intellectual property rights and unfair competition laws) and treaties in the United States and around the world.",
-        "ourPropertyParagraph3": "The Content and Marks are provided in or through the Services \\\"AS IS\\\" for your personal, non-commercial use or internal business purpose only.",
-        "yourUseTitle": "Your use of our Services",
-        "yourUseParagraph1": "Subject to your compliance with these Legal Terms, including the \\\"PROHIBITED ACTIVITIES\\\" section below, we grant you a non-exclusive, non-transferable, revocable license to:",
-        "yourUseList1": "Access the Services",
-        "yourUseList2": "Download or print a copy of any portion of the Content to which you have properly gained access"
-      },
-      "userRepresentations": {
-        "title": "USER REPRESENTATIONS",
-        "intro": "By using the Services, you represent and warrant that:",
-        "list1": "All registration information you submit will be true, accurate, current, and complete",
-        "list2": "You will maintain the accuracy of such information and promptly update such registration information as necessary",
-        "list3": "You have the legal capacity and you agree to comply with these Legal Terms",
-        "list4": "You are not a minor in the jurisdiction in which you reside",
-        "list5": "You will not access the Services through automated or non-human means, whether through a bot, script, or otherwise",
-        "list6": "You will not use the Services for any illegal or unauthorized purpose",
-        "list7": "Your use of the Services will not violate any applicable law or regulation",
-        "conclusion": "If you provide any information that is untrue, inaccurate, not current, or incomplete, we have the right to suspend or terminate your account and refuse any and all current or future use of the Services (or any portion thereof)."
-      },
-      "userRegistration": {
-        "title": "USER REGISTRATION",
-        "paragraph1": "You may be required to register to use the Services. You agree to keep your cloudflare token confidential and will be responsible for all use of your account and cloudflare token. We reserve the right to remove, reclaim, or change a username you select if we determine, in our sole discretion, that such username is inappropriate, obscene, or otherwise objectionable."
-      },
-      "purchasesPayment": {
-        "title": "PURCHASES AND PAYMENT",
-        "paymentIntro": "We accept the following forms of payment:",
-        "paymentVisa": "Visa",
-        "paymentMastercard": "Mastercard",
-        "paymentAmex": "American Express",
-        "paymentStripe": "Stripe",
-        "paragraph1": "You agree to provide current, complete, and accurate purchase and account information for all purchases made via the Services. You further agree to promptly update account and payment information, including email address, payment method, and payment card expiration date, so that we can complete your transactions and contact you as needed. Sales tax will be added to the price of purchases as deemed required by us. We may change prices at any time. All payments shall be in US dollars.",
-        "paragraph2": "We reserve the right to refuse any order placed through the Services. We may, in our sole discretion, limit or cancel quantities purchased per person, per household, or per order. These restrictions may include orders placed by or under the same customer account, the same payment method, and/or orders that use the same billing or shipping address."
-      },
-      "subscriptions": {
-        "title": "SUBSCRIPTIONS",
-        "billingTitle": "Billing and Renewal",
-        "billingParagraph1": "Your subscription will continue and automatically renew unless cancelled. You consent to our charging your payment method on a recurring basis without requiring your prior approval for each recurring charge, until such time as you cancel the applicable order.",
-        "billingParagraph2": "The length of your billing cycle will depend on the type of subscription plan you choose when purchasing the subscription.",
-        "cancellationTitle": "Cancellation",
-        "cancellationParagraph1": "You can cancel your subscription at any time by logging into your account. Your cancellation will take effect at the end of the current paid term.",
-        "cancellationParagraph2": "If you are unsatisfied with our Services, please email us at contact@libra.dev.",
-        "feeChangesTitle": "Fee Changes",
-        "feeChangesParagraph1": "We may, from time to time, make changes to the subscription fee and will communicate any price changes to you in accordance with applicable law."
-      },
-      "prohibitedActivities": {
-        "title": "PROHIBITED ACTIVITIES",
-        "intro1": "You may not access or use the Services for any purpose other than that for which we make the Services available.",
-        "intro2": "As a user of the Services, you agree not to:",
-        "list1": "Systematically retrieve data or other content from the Services to create or compile, directly or indirectly, a collection, compilation, database, or directory without written permission from us",
-        "list2": "Trick, defraud, or mislead us and other users, especially in any attempt to learn sensitive account information such as user passwords",
-        "list3": "Circumvent, disable, or otherwise interfere with security-related features of the Services",
-        "list4": "Disparage, tarnish, or otherwise harm, in our opinion, us and/or the Services",
-        "list5": "Use any information obtained from the Services in order to harass, abuse, or harm another person",
-        "list6": "Make improper use of our support services or submit false reports of abuse or misconduct",
-        "list7": "Use the Services in a manner inconsistent with any applicable laws or regulations",
-        "list8": "Engage in unauthorized framing of or linking to the Services",
-        "list9": "Upload or transmit (or attempt to upload or to transmit) viruses, Trojan horses, or other material",
-        "list10": "Use, launch, develop, or distribute any automated system, including without limitation, any spider, robot, cheat utility, scraper, or offline reader that accesses the Services"
-      },
-      "userGeneratedContributions": {
-        "title": "USER GENERATED CONTRIBUTIONS",
-        "paragraph1": "The Services may invite you to chat, contribute to, or participate in blogs, message boards, online forums, and other functionality, and may provide you with the opportunity to create, submit, post, display, transmit, perform, publish, distribute, or broadcast content and materials to us or on the Services, including but not limited to text, writings, video, audio, photographs, graphics, comments, suggestions, or personal information or other material (collectively, \\\"Contributions\\\").",
-        "paragraph2": "Contributions may be viewable by other users of the Services and through third-party websites. As such, any Contributions you transmit may be treated as non-confidential and non-proprietary. When you create or make available any Contributions, you thereby represent and warrant that:",
-        "warrantyList1": "The creation, distribution, transmission, public display, or performance, and the accessing, downloading, or copying of your Contributions do not and will not infringe the proprietary rights of any third party.",
-        "warrantyList2": "You are the creator and owner of or have the necessary licenses, rights, consents, releases, and permissions to use and to authorize us, the Services, and other users of the Services to use your Contributions.",
-        "warrantyList3": "You have the written consent, release, and/or permission of each and every identifiable individual person in your Contributions.",
-        "warrantyList4": "Your Contributions are not false, inaccurate, or misleading.",
-        "warrantyList5": "Your Contributions are not unsolicited or unauthorized advertising, promotional materials, pyramid schemes, chain letters, spam, mass mailings, or other forms of solicitation.",
-        "warrantyList6": "Your Contributions are not obscene, lewd, lascivious, filthy, violent, harassing, libelous, slanderous, or otherwise objectionable.",
-        "warrantyList7": "Your Contributions do not ridicule, mock, disparage, intimidate, or abuse anyone.",
-        "warrantyList8": "Your Contributions are not used to harass or threaten any other person and to promote violence against a specific person or class of people.",
-        "warrantyList9": "Your Contributions do not violate any applicable law, regulation, or rule.",
-        "warrantyList10": "Your Contributions do not violate the privacy or publicity rights of any third party.",
-        "conclusion": "Any use of the Services in violation of the foregoing violates these Legal Terms and may result in, among other things, termination or suspension of your rights to use the Services."
-      },
-      "contributionLicense": {
-        "title": "CONTRIBUTION LICENSE",
-        "paragraph1": "By posting your Contributions to any part of the Services, you automatically grant, and you represent and warrant that you have the right to grant, to us an unrestricted, unlimited, irrevocable, perpetual, non-exclusive, transferable, royalty-free, fully-paid, worldwide right, and license to host, use, copy, reproduce, disclose, sell, resell, publish, broadcast, retitle, archive, store, cache, publicly perform, publicly display, reformat, translate, transmit, excerpt (in whole or in part), and distribute such Contributions.",
-        "paragraph2": "This license will apply to any form, media, or technology now known or hereafter developed, and includes our use of your name, company name, and franchise name, as applicable, and any of the trademarks, service marks, trade names, logos, and personal and commercial images you provide.",
-        "paragraph3": "You waive all moral rights in your Contributions, and you warrant that moral rights have not otherwise been asserted in your Contributions.",
-        "paragraph4": "We do not assert any ownership over your Contributions. You retain full ownership of all of your Contributions and any intellectual property rights or other proprietary rights associated with your Contributions."
-      },
-      "socialMedia": {
-        "title": "SOCIAL MEDIA",
-        "paragraph1": "As part of the functionality of the Services, you may link your account with online accounts you have with third-party service providers (each such account, a \\\"Third-Party Account\\\") by either: (1) providing your Third-Party Account login information through the Services; or (2) allowing us to access your Third-Party Account, as is permitted under the applicable terms and conditions that govern your use of each Third-Party Account.",
-        "paragraph2": "By granting us access to any Third-Party Accounts, you understand that:",
-        "list1": "We may access, make available, and store any content that you have provided to and stored in your Third-Party Account so that it is available on and through the Services via your account.",
-        "list2": "We may submit to and receive from your Third-Party Account additional information to the extent you are notified when you link your account with the Third-Party Account."
-      },
-      "thirdPartyWebsites": {
-        "title": "THIRD-PARTY WEBSITES AND CONTENT",
-        "paragraph1": "The Services may contain (or you may be sent via the Site) links to other websites (\"Third-Party Websites\") as well as articles, photographs, text, graphics, pictures, designs, music, sound, video, information, applications, software, and other content or items belonging to or originating from third parties (\"Third-Party Content\").",
-        "paragraph2": "Such Third-Party Websites and Third-Party Content are not investigated, monitored, or checked for accuracy, appropriateness, or completeness by us, and we are not responsible for any Third-Party Websites accessed through the Services or any Third-Party Content posted on, available through, or installed from the Services.",
-        "paragraph3": "You agree and acknowledge that we do not endorse the products or services offered on Third-Party Websites and you shall hold us blameless from any harm caused by your purchase of such products or services. Additionally, you shall hold us blameless from any losses sustained by you or harm caused to you relating to or resulting in any way from any Third-Party Content or any contact with Third-Party Websites."
-      },
-      "servicesManagement": {
-        "title": "SERVICES MANAGEMENT",
-        "intro": "We reserve the right, but not the obligation, to:",
-        "list1": "Monitor the Services for violations of these Legal Terms",
-        "list2": "Take appropriate legal action against anyone who, in our sole discretion, violates the law or these Legal Terms",
-        "list3": "Refuse, restrict access to, limit the availability of, or disable any of your Contributions or any portion thereof",
-        "list4": "Remove from the Services or otherwise disable all files and content that are excessive in size or are in any way burdensome to our systems",
-        "list5": "Otherwise manage the Services in a manner designed to protect our rights and property and to facilitate the proper functioning of the Services"
-      },
-      "privacyPolicy": {
-        "title": "PRIVACY POLICY",
-        "paragraph1": "We care about data privacy and security. Please review our Privacy Policy at libra.dev/privacy. By using the Services, you agree to be bound by our Privacy Policy, which is incorporated into these Legal Terms.",
-        "paragraph2": "Please be advised that while our Services are delivered through a global edge network for optimal performance, all user data is stored in the United States. If you access the Services from any other region of the world with laws or other requirements governing personal data collection, use, or disclosure that differ from applicable laws in the United States, then through your continued use of the Services, you acknowledge that your data will be stored in the United States, and you expressly consent to have your data stored and processed in the United States."
-      },
-      "copyrightInfringements": {
-        "title": "COPYRIGHT INFRINGEMENTS",
-        "paragraph1": "We respect the intellectual property rights of others. If you believe that any material available on or through the Services infringes upon any copyright you own or control, please immediately notify us using the contact information provided below (a \"Notification\").",
-        "paragraph2": "A copy of your Notification will be sent to the person who posted or stored the material addressed in the Notification. Please be advised that pursuant to applicable law you may be held liable for damages if you make material misrepresentations in a Notification. Thus, if you are not sure that material located on or linked to by the Services infringes your copyright, you should consider first contacting an attorney."
-      },
-      "termTermination": {
-        "title": "TERM AND TERMINATION",
-        "paragraph1": "These Legal Terms shall remain in full force and effect while you use the Services. WITHOUT LIMITING ANY OTHER PROVISION OF THESE LEGAL TERMS, WE RESERVE THE RIGHT TO, IN OUR SOLE DISCRETION AND WITHOUT NOTICE OR LIABILITY, DENY ACCESS TO AND USE OF THE SERVICES (INCLUDING BLOCKING CERTAIN IP ADDRESSES), TO ANY PERSON FOR ANY REASON OR FOR NO REASON, INCLUDING WITHOUT LIMITATION FOR BREACH OF ANY REPRESENTATION, WARRANTY, OR COVENANT CONTAINED IN THESE LEGAL TERMS OR OF ANY APPLICABLE LAW OR REGULATION.",
-        "paragraph2": "If we terminate or suspend your account for any reason, you are prohibited from registering and creating a new account under your name, a fake or borrowed name, or the name of any third party, even if you may be acting on behalf of the third party. In addition to terminating or suspending your account, we reserve the right to take appropriate legal action, including without limitation pursuing civil, criminal, and injunctive redress."
-      },
-      "modificationsInterruptions": {
-        "title": "MODIFICATIONS AND INTERRUPTIONS",
-        "paragraph1": "We reserve the right to change, modify, or remove the contents of the Services at any time or for any reason at our sole discretion without notice. We will not be liable to you or any third party for any modification, price change, suspension, or discontinuance of the Services.",
-        "paragraph2": "We cannot guarantee the Services will be available at all times. We may experience hardware, software, or other problems or need to perform maintenance related to the Services, resulting in interruptions, delays, or errors. We reserve the right to change, revise, update, suspend, discontinue, or otherwise modify the Services at any time or for any reason without notice to you."
-      },
-      "governingLaw": {
-        "title": "GOVERNING LAW",
-        "paragraph1": "These Legal Terms shall be governed by and defined following applicable laws. Any disputes arising from these Legal Terms shall be resolved through appropriate legal channels."
-      },
-      "disputeResolution": {
-        "title": "DISPUTE RESOLUTION",
-        "informalNegotiationsTitle": "Informal Negotiations",
-        "informalNegotiationsParagraph": "To expedite resolution and control the cost of any dispute, controversy, or claim related to these Legal Terms (each a \"Dispute\" and collectively, the \"Disputes\") brought by either you or us (individually, a \"Party\" and collectively, the \"Parties\"), the Parties agree to first attempt to negotiate any Dispute informally for at least thirty (30) days before initiating arbitration.",
-        "bindingArbitrationTitle": "Binding Arbitration",
-        "bindingArbitrationParagraph": "Any dispute arising out of or in connection with these Legal Terms shall be resolved through appropriate legal channels and applicable dispute resolution procedures.",
-        "restrictionsTitle": "Restrictions",
-        "restrictionsParagraph": "The Parties agree that any arbitration shall be limited to the Dispute between the Parties individually. To the full extent permitted by law, (a) no arbitration shall be joined with any other proceeding; (b) there is no right or authority for any Dispute to be arbitrated on a class-action basis; and (c) there is no right or authority for any Dispute to be brought in a purported representative capacity on behalf of the general public or any other persons."
-      },
-      "corrections": {
-        "title": "CORRECTIONS",
-        "paragraph1": "There may be information on the Services that contains typographical errors, inaccuracies, or omissions, including descriptions, pricing, availability, and various other information. We reserve the right to correct any errors, inaccuracies, or omissions and to change or update the information on the Services at any time, without prior notice."
-      },
-      "disclaimer": {
-        "title": "DISCLAIMER",
-        "content": "THE SERVICES ARE PROVIDED ON AN AS-IS AND AS-AVAILABLE BASIS. YOU AGREE THAT YOUR USE OF THE SERVICES WILL BE AT YOUR SOLE RISK. TO THE FULLEST EXTENT PERMITTED BY LAW, WE DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, IN CONNECTION WITH THE SERVICES AND YOUR USE THEREOF, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON- INFRINGEMENT. WE MAKE NO WARRANTIES OR REPRESENTATIONS ABOUT THE ACCURACY OR COMPLETENESS OF THE SERVICES' CONTENT OR THE CONTENT OF ANY WEBSITES OR MOBILE APPLICATIONS LINKED TO THE SERVICES AND WE WILL ASSUME NO LIABILITY OR RESPONSIBILITY FOR ANY (1) ERRORS, MISTAKES, OR INACCURACIES OF CONTENT AND MATERIALS, (2) PERSONAL INJURY OR PROPERTY DAMAGE, OF ANY NATURE WHATSOEVER, RESULTING FROM YOUR ACCESS TO AND USE OF THE SERVICES, (3) ANY UNAUTHORIZED ACCESS TO OR USE OF OUR SECURE SERVERS AND/OR ANY AND ALL PERSONAL INFORMATION AND/OR FINANCIAL INFORMATION STORED THEREIN, (4) ANY INTERRUPTION OR CESSATION OF TRANSMISSION TO OR FROM THE SERVICES, (5) ANY BUGS, VIRUSES, TROJAN HORSES, OR THE LIKE WHICH MAY BE TRANSMITTED TO OR THROUGH THE SERVICES BY ANY THIRD PARTY, AND/OR (6) ANY ERRORS OR OMISSIONS IN ANY CONTENT AND MATERIALS OR FOR ANY LOSS OR DAMAGE OF ANY KIND INCURRED AS A RESULT OF THE USE OF ANY CONTENT POSTED, TRANSMITTED, OR OTHERWISE MADE AVAILABLE VIA THE SERVICES. WE DO NOT WARRANT, ENDORSE, GUARANTEE, OR ASSUME RESPONSIBILITY FOR ANY PRODUCT OR SERVICE ADVERTISED OR OFFERED BY A THIRD PARTY THROUGH THE SERVICES, ANY HYPERLINKED WEBSITE, OR ANY WEBSITE OR MOBILE APPLICATION FEATURED IN ANY BANNER OR OTHER ADVERTISING, AND WE WILL NOT BE A PARTY TO OR IN ANY WAY BE RESPONSIBLE FOR MONITORING ANY TRANSACTION BETWEEN YOU AND ANY THIRD-PARTY PROVIDERS OF PRODUCTS OR SERVICES. AS WITH THE PURCHASE OF A PRODUCT OR SERVICE THROUGH ANY MEDIUM OR IN ANY ENVIRONMENT, YOU SHOULD USE YOUR BEST JUDGMENT AND EXERCISE CAUTION WHERE APPROPRIATE."
-      },
-      "limitationsLiability": {
-        "title": "LIMITATIONS OF LIABILITY",
-        "content": "IN NO EVENT WILL WE OR OUR DIRECTORS, EMPLOYEES, OR AGENTS BE LIABLE TO YOU OR ANY THIRD PARTY FOR ANY DIRECT, INDIRECT, CONSEQUENTIAL, EXEMPLARY, INCIDENTAL, SPECIAL, OR PUNITIVE DAMAGES, INCLUDING LOST PROFIT, LOST REVENUE, LOSS OF DATA, OR OTHER DAMAGES ARISING FROM YOUR USE OF THE SERVICES, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. NOTWITHSTANDING ANYTHING TO THE CONTRARY CONTAINED HEREIN, OUR LIABILITY TO YOU FOR ANY CAUSE WHATSOEVER AND REGARDLESS OF THE FORM OF THE ACTION, WILL AT ALL TIMES BE LIMITED TO THE AMOUNT PAID, IF ANY, BY YOU TO US DURING THE ONE (1) MONTH PERIOD PRIOR TO ANY CAUSE OF ACTION ARISING. CERTAIN US STATE LAWS AND INTERNATIONAL LAWS DO NOT ALLOW LIMITATIONS ON IMPLIED WARRANTIES OR THE EXCLUSION OR LIMITATION OF CERTAIN DAMAGES. IF THESE LAWS APPLY TO YOU, SOME OR ALL OF THE ABOVE DISCLAIMERS OR LIMITATIONS MAY NOT APPLY TO YOU, AND YOU MAY HAVE ADDITIONAL RIGHTS."
-      },
-      "indemnification": {
-        "title": "INDEMNIFICATION",
-        "paragraph1": "You agree to defend, indemnify, and hold us harmless, including our subsidiaries, affiliates, and all of our respective officers, agents, partners, and employees, from and against any loss, damage, liability, claim, or demand, including reasonable attorneys' fees and expenses, made by any third party due to or arising out of:",
-        "list1": "Your Contributions",
-        "list2": "Use of the Services",
-        "list3": "Breach of these Legal Terms",
-        "list4": "Any breach of your representations and warranties set forth in these Legal Terms",
-        "list5": "Your violation of the rights of a third party, including but not limited to intellectual property rights",
-        "list6": "Any overt harmful act toward any other user of the Services with whom you connected via the Services",
-        "paragraph2": "Notwithstanding the foregoing, we reserve the right, at your expense, to assume the exclusive defense and control of any matter for which you are required to indemnify us, and you agree to cooperate, at your expense, with our defense of such claims."
-      },
-      "userData": {
-        "title": "USER DATA",
-        "paragraph1": "We will maintain certain data that you transmit to the Services for the purpose of managing the performance of the Services, as well as data relating to your use of the Services.",
-        "paragraph2": "Although we perform regular routine backups of data, you are solely responsible for all data that you transmit or that relates to any activity you have undertaken using the Services. You agree that we shall have no liability to you for any loss or corruption of any such data, and you hereby waive any right of action against us arising from any such loss or corruption of such data."
-      },
-      "electronicCommunications": {
-        "title": "ELECTRONIC COMMUNICATIONS, TRANSACTIONS, AND SIGNATURES",
-        "paragraph1": "Visiting the Services, sending us emails, and completing online forms constitute electronic communications. You consent to receive electronic communications, and you agree that all agreements, notices, disclosures, and other communications we provide to you electronically, via email and on the Services, satisfy any legal requirement that such communication be in writing.",
-        "paragraph2": "You hereby agree to the use of electronic signatures, contracts, orders, and other records, and to electronic delivery of notices, policies, and records of transactions initiated or completed by us or via the Services.",
-        "paragraph3": "You hereby waive any rights or requirements under any statutes, regulations, rules, ordinances, or other laws in any jurisdiction which require an original signature or delivery or retention of non-electronic records, or to payments or the granting of credits by any means other than electronic means."
-      },
-      "californiaUsers": {
-        "title": "CALIFORNIA USERS AND RESIDENTS",
-        "paragraph1": "If any complaint with us is not satisfactorily resolved, you can contact the Complaint Assistance Unit of the Division of Consumer Services of the California Department of Consumer Affairs in writing at 1625 North Market Blvd., Suite N 112, Sacramento, California 95834 or by telephone at (800) 952-5210 or (916) 445-1254."
-      },
-      "miscellaneous": {
-        "title": "MISCELLANEOUS",
-        "paragraph1": "These Legal Terms and any policies or operating rules posted by us on the Services or in respect to the Services constitute the entire agreement and understanding between you and us. Our failure to exercise or enforce any right or provision of these Legal Terms shall not operate as a waiver of such right or provision.",
-        "paragraph2": "These Legal Terms operate to the fullest extent permissible by law. We may assign any or all of our rights and obligations to others at any time. We shall not be responsible or liable for any loss, damage, delay, or failure to act caused by any cause beyond our reasonable control.",
-        "paragraph3": "If any provision or part of a provision of these Legal Terms is determined to be unlawful, void, or unenforceable, that provision or part of the provision is deemed severable from these Legal Terms and does not affect the validity and enforceability of any remaining provisions.",
-        "paragraph4": "There is no joint venture, partnership, employment or agency relationship created between you and us as a result of these Legal Terms or use of the Services. You agree that these Legal Terms will not be construed against us by virtue of having drafted them.",
-        "paragraph5": "You hereby waive any and all defenses you may have based on the electronic form of these Legal Terms and the lack of signing by the parties hereto to execute these Legal Terms."
-      }
-    },
-    "contact": {
-      "title": "Contact Us",
-      "description": "In order to resolve a complaint regarding the Services or to receive further information regarding use of the Services, please contact us at:",
-      "companyName": "Libra AI"
     }
   },
   "hero_examples_title": "App Ideas Examples",

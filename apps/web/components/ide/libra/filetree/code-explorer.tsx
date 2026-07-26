@@ -18,14 +18,13 @@
  *
  */
 
-import React, { useRef, useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import { FileExplorer } from '@/components/ide/libra/filetree/file-explorer'
-import { CodeBlock } from './code-block'
-import { CodeEditor } from './components/code-editor'
-import { CodeExplorerTopBar } from './code-explorer-top-bar'
-import { useUpgradeModal } from '@/components/common/upgrade-modal'
 import * as m from '@/paraglide/messages'
+import { CodeBlock } from './code-block'
+import { CodeExplorerTopBar } from './code-explorer-top-bar'
+import { CodeEditor } from './components/code-editor'
 
 // Import or copy file icon function from render-filetree.tsx
 const getFileIconPath = (filename: string) => {
@@ -159,9 +158,6 @@ export function CodeExplorer({
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const codeContentRef = useRef<HTMLDivElement>(null)
 
-  // Add upgrade modal functionality
-  const { checkFeatureAccess } = useUpgradeModal()
-
   // Add ref for expanding file tree
   const expandFileTreeRef = React.useRef<((path: string) => void) | null>(null)
 
@@ -207,28 +203,17 @@ export function CodeExplorer({
   }, [isFullScreen])
 
   // Handle edit mode toggle
-  const handleEditModeToggle = React.useCallback((enabled: boolean) => {
-    // Only allow edit mode when edit functions are available
-    if (enabled && (!updateFileContent || !deployChanges)) {
-      return
-    }
-
-    // If enabling edit mode, check membership status
-    if (enabled) {
-      const hasAccess = checkFeatureAccess('edit-mode', () => {
-        setIsEditMode(true)
-      })
-      
-      // If user doesn't have access, the upgrade modal will be shown
-      // and setIsEditMode(true) will be called in the success callback
-      if (!hasAccess) {
+  const handleEditModeToggle = React.useCallback(
+    (enabled: boolean) => {
+      // Only allow edit mode when edit functions are available
+      if (enabled && (!updateFileContent || !deployChanges)) {
         return
       }
-    } else {
-      // Disabling edit mode doesn't require membership check
-      setIsEditMode(false)
-    }
-  }, [updateFileContent, deployChanges, checkFeatureAccess])
+
+      setIsEditMode(enabled)
+    },
+    [updateFileContent, deployChanges]
+  )
 
   // Initialize scroll listener
   useEffect(() => {
@@ -264,9 +249,7 @@ export function CodeExplorer({
 
   // Extension class name, handle full screen mode
   const containerClassNames = `h-full flex flex-col ${
-    isFullScreen
-      ? 'fixed inset-0 z-[9999] bg-background dark:bg-background'
-      : ''
+    isFullScreen ? 'fixed inset-0 z-[9999] bg-background dark:bg-background' : ''
   }`
 
   // File extension
@@ -304,9 +287,7 @@ export function CodeExplorer({
 
         {/* Main content area */}
         <div
-          className={
-            `flex-1 h-full flex flex-col overflow-auto scrollable-container ${isScrolling ? 'scrolling' : ''}`
-          }
+          className={`flex-1 h-full flex flex-col overflow-auto scrollable-container ${isScrolling ? 'scrolling' : ''}`}
           ref={codeContentRef}
         >
           {currentPath ? (
@@ -362,8 +343,12 @@ export function CodeExplorer({
                     <polyline points='14 2 14 8 20 8' />
                     <line x1='9' y1='15' x2='15' y2='15' />
                   </svg>
-                  <p className='text-lg font-medium text-fg-default'>{m["ide.fileTree.codeExplorer.selectFilePrompt"]()}</p>
-                  <p className='text-sm text-center'>{m["ide.fileTree.codeExplorer.selectFileDescription"]()}</p>
+                  <p className='text-lg font-medium text-fg-default'>
+                    {m['ide.fileTree.codeExplorer.selectFilePrompt']()}
+                  </p>
+                  <p className='text-sm text-center'>
+                    {m['ide.fileTree.codeExplorer.selectFileDescription']()}
+                  </p>
                 </div>
               </div>
             </div>

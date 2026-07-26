@@ -26,7 +26,11 @@ export default function cloudflareLoader({
   src,
   width,
   quality,
-}: { src: string; width: number; quality?: number }) {
+}: {
+  src: string
+  width: number
+  quality?: number
+}) {
   const params = [`width=${width}`]
   if (quality) {
     params.push(`quality=${quality}`)
@@ -40,9 +44,12 @@ export default function cloudflareLoader({
     return src
   }
 
-  // Skip Cloudflare image optimization for cdn.libra.dev URLs
+  // Skip Cloudflare image optimization for cdn.forge.tmidev.net URLs
   // This prevents double processing of images already served by our CDN
-  if (src.startsWith('https://cdn.libra.dev/') || src.startsWith('http://cdn.libra.dev/')) {
+  if (
+    src.startsWith('https://cdn.forge.tmidev.net/') ||
+    src.startsWith('http://cdn.forge.tmidev.net/')
+  ) {
     return src
   }
 

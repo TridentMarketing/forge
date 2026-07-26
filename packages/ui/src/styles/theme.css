@@ -18,11 +18,11 @@
  *
  */
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 @theme inline {
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
+  --color-ai: var(--ai);
+  --color-ai-foreground: var(--ai-foreground);
   --color-light: var(--light);
   --color-light-foreground: var(--light-foreground);
   --color-background: var(--background);

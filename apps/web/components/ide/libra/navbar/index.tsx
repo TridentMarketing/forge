@@ -20,13 +20,8 @@
 
 'use client'
 
-import { ThemeSwitcher } from '@/components/common/theme-switcher'
-import UserButton from '@/components/common/user-button'
-import { useProjectContext } from '@/lib/hooks/use-project-id'
-
-import { SegmentedControl } from '@/components/ui/segmented-control'
-
 import { Button } from '@libra/ui/components/button'
+import { toast } from '@libra/ui/components/sonner'
 import {
   Tooltip,
   TooltipContent,
@@ -34,21 +29,24 @@ import {
   TooltipTrigger,
 } from '@libra/ui/components/tooltip'
 import { cn } from '@libra/ui/lib/utils'
-import { Code, EyeIcon, Search, Rocket, Share } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
-import { RainbowButton } from '@/components/ui/rainbow-button'
-import { usePreviewStore } from '@/components/ide/libra/hooks/use-preview-store'
-import { ShareProjectModal } from './components/share-project-modal'
-import { isQuotaExceeded } from '@/components/ide/libra/chat-panel/utils/quota-utils'
-import { toast } from '@libra/ui/components/sonner'
-import Github from '@/components/logos/github'
-import GitHubModal from '@/components/ide/libra/github-integration/github-modal'
-import { DeploymentDialog } from './components/deployment'
-import { useDeployment } from './hooks/use-deployment'
-import * as m from '@/paraglide/messages'
-import { useTheme } from 'next-themes'
+import { Code, EyeIcon, Rocket, Search, Share } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useTheme } from 'next-themes'
+import { useEffect, useRef, useState } from 'react'
+import { ThemeSwitcher } from '@/components/common/theme-switcher'
+import UserButton from '@/components/common/user-button'
+import { isQuotaExceeded } from '@/components/ide/libra/chat-panel/utils/quota-utils'
+import GitHubModal from '@/components/ide/libra/github-integration/github-modal'
+import { usePreviewStore } from '@/components/ide/libra/hooks/use-preview-store'
+import Github from '@/components/logos/github'
+import { RainbowButton } from '@/components/ui/rainbow-button'
+import { SegmentedControl } from '@/components/ui/segmented-control'
+import { useProjectContext } from '@/lib/hooks/use-project-id'
+import * as m from '@/paraglide/messages'
+import { DeploymentDialog } from './components/deployment'
+import { ShareProjectModal } from './components/share-project-modal'
+import { useDeployment } from './hooks/use-deployment'
 
 /**
  * IDE Navbar
@@ -77,8 +75,6 @@ export default function Navbar({
   const { setIsPreviewVisible } = usePreviewStore()
   const { theme } = useTheme()
 
-
-
   // Get deployment functionality from custom hook
   const {
     isDeploying,
@@ -99,8 +95,6 @@ export default function Navbar({
 
   // Check if quota is exceeded
   const quotaExceeded = isQuotaExceeded(usageData)
-
-
 
   // Handle share functionality
   const handleShare = () => {
@@ -172,9 +166,8 @@ export default function Navbar({
         'py-1'
       )}
     >
-      {/* Left side - Libra Logo */}
+      {/* Left side - Forge logo */}
       <div className='flex items-center pl-1 sm:pl-2'>
-        {/* Libra Logo */}
         <Link
           href='/dashboard'
           className={cn(
@@ -185,16 +178,16 @@ export default function Navbar({
           aria-label={m['ide.navbar.returnToDashboard']()}
         >
           <Image
-            src='/libra-logo.svg'
-            alt={m['ide.navbar.libraAltText']()}
+            src='/forge-logo.svg'
+            alt={m['ide.navbar.logoAltText']()}
             width={48}
             height={48}
             className='block dark:hidden w-full h-full object-contain'
             priority
           />
           <Image
-            src='/libra-logo-dark.svg'
-            alt={m['ide.navbar.libraAltText']()}
+            src='/forge-logo-dark.svg'
+            alt={m['ide.navbar.logoAltText']()}
             width={48}
             height={48}
             className='hidden dark:block w-full h-full object-contain'
@@ -207,8 +200,8 @@ export default function Navbar({
       <div className='flex items-center'>
         {/* Function button groups */}
         <div className='flex items-center gap-1 sm:gap-2 md:gap-3 mr-3 sm:mr-4 md:mr-6'>
-                      {/* Tool buttons group */}
-            <div className='flex items-center gap-2'>
+          {/* Tool buttons group */}
+          <div className='flex items-center gap-2'>
             {/* Small screen search button */}
             {isSmallScreen && (
               <Button
@@ -235,14 +228,14 @@ export default function Navbar({
                           value: 'code',
                           label: m['ide.navbar.code'](),
                           icon: <Code className='h-3.5 w-3.5' />,
-                          disabled: quotaExceeded
+                          disabled: quotaExceeded,
                         },
                         {
                           value: 'preview',
                           label: m['ide.navbar.preview'](),
                           icon: <EyeIcon className='h-3.5 w-3.5' />,
-                          disabled: quotaExceeded
-                        }
+                          disabled: quotaExceeded,
+                        },
                       ]}
                       value={codePreviewActive ? 'code' : 'preview'}
                       onValueChange={(value) => {
@@ -250,7 +243,10 @@ export default function Navbar({
                           return
                         }
                         // Toggle when switching between values
-                        if ((value === 'code' && !codePreviewActive) || (value === 'preview' && codePreviewActive)) {
+                        if (
+                          (value === 'code' && !codePreviewActive) ||
+                          (value === 'preview' && codePreviewActive)
+                        ) {
                           handleCodePreviewToggle()
                         }
                       }}
@@ -364,16 +360,16 @@ export default function Navbar({
           </div>
         </div>
 
-                {/* User actions */}
+        {/* User actions */}
         <div className='flex items-center gap-3'>
-          <RainbowButton 
-            onClick={handleShare} 
-            variant="outline" 
-            size="sm"
-            className="h-8 px-3 hover:scale-105 transition-all duration-200"
+          <RainbowButton
+            onClick={handleShare}
+            variant='outline'
+            size='sm'
+            className='h-8 px-3 hover:scale-105 transition-all duration-200'
           >
             <Share className='h-3.5 w-3.5 mr-1.5' aria-hidden='true' />
-            <span className="text-sm font-medium">{m['ide.navbar.share']()}</span>
+            <span className='text-sm font-medium'>{m['ide.navbar.share']()}</span>
           </RainbowButton>
           <UserButton />
         </div>

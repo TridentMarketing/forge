@@ -1,5 +1,5 @@
 {
-  "title": "Libra AI",
+  "title": "Forge",
   "description": "Platform specific features and integrations",
   "icon": "Server",
   "root": true,
@@ -7,16 +7,11 @@
     "---Quickstart---",
     "index",
     "quickstart",
-    "faq",
-    "---Using Libra---",
-    "usinglibra/deploy/index",
-    "usinglibra/directEdit/index",
-    "usinglibra/timeMachine/index",
+    "---Using Forge---",
+    "usingforge/deploy/index",
+    "usingforge/directEdit/index",
+    "usingforge/timeMachine/index",
     "---Guides---",
-    "guides/effective-ai-communication",
-    "---Account & Billing---",
-    "account/index",
-    "---Community---",
-    "community/index"
+    "guides/effective-ai-communication"
   ]
 }

@@ -25,8 +25,6 @@ import { TooltipProvider } from '@libra/ui/components/tooltip'
 import posthog from 'posthog-js'
 import { PostHogProvider as PHProvider } from 'posthog-js/react'
 import { useEffect } from 'react'
-import { GifPreloadProvider, PreloadGifs } from '@/components/ui/text-gif'
-import { UpgradeModalProvider } from '@/components/common/upgrade-modal'
 
 interface ClientProvidersProps {
   children: React.ReactNode
@@ -36,14 +34,7 @@ export default function ClientProviders({ children }: ClientProvidersProps) {
   return (
     <PostHogProvider>
       <TooltipProvider>
-        <ToastProvider>
-          <UpgradeModalProvider>
-            <GifPreloadProvider>
-              <PreloadGifs />
-              {children}
-            </GifPreloadProvider>
-          </UpgradeModalProvider>
-        </ToastProvider>
+        <ToastProvider>{children}</ToastProvider>
       </TooltipProvider>
     </PostHogProvider>
   )

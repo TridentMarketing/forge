@@ -22,9 +22,9 @@
 
 import type { HistoryType, ThinkingMessageType, UserMessageType } from '@libra/common'
 import { createId } from '@paralleldrive/cuid2'
-import type { Message } from './types'
-import type { DetailedLoadingStatus } from '../types'
 import { toast } from 'sonner'
+import type { DetailedLoadingStatus } from '../types'
+import type { Message } from './types'
 
 /**
  * Create request manager
@@ -39,8 +39,8 @@ export const createRequestManager = (
   updateLoadingStage: (planId: string, stage: string, progress: number) => void,
   activeRequestsRef: React.MutableRefObject<Set<string>>,
   initialRequestTrackerRef: React.MutableRefObject<{
-    lastContent: string | null,
-    lastTimestamp: number,
+    lastContent: string | null
+    lastTimestamp: number
     isProcessing: boolean
   }>,
   currentAbortControllerRef: React.MutableRefObject<AbortController | null>,
@@ -53,11 +53,11 @@ export const createRequestManager = (
     if (currentAbortControllerRef.current && !currentAbortControllerRef.current.signal.aborted) {
       setIsStopping(true)
       currentAbortControllerRef.current.abort()
-      
+
       // Immediately clean up state
       setLoading(null)
       setIsLoading(false)
-      
+
       // Add stop message to UI
       setMessages((prev) => {
         const newMessages = [...prev]
@@ -68,7 +68,7 @@ export const createRequestManager = (
               newMessages[i] = {
                 ...msg,
                 content: msg.content + '\n\n[Generation stopped by user]',
-                status: 'stopped'
+                status: 'stopped',
               } as any
             }
             break
@@ -76,7 +76,7 @@ export const createRequestManager = (
         }
         return newMessages
       })
-      
+
       setTimeout(() => {
         setIsStopping(false)
         currentAbortControllerRef.current = null
@@ -103,31 +103,33 @@ export const createRequestManager = (
 
     const planId = providedPlanId || createId()
     const currentTime = Date.now()
-    
+
     // Request unique identifier
     const requestKey = `${content}_${planId}_${currentTime}`
-    
+
     // Check for duplicate requests
     if (activeRequestsRef.current.has(requestKey)) return null
-    
+
     // Mark as active request
     activeRequestsRef.current.add(requestKey)
-    
+
     // Create abort controller
     const abortController = new AbortController()
     currentAbortControllerRef.current = abortController
-    
+
     // Create user message
     const userMessage = {
       type: 'user',
       message: content,
       planId,
       selectedElements: selectedItems.length > 0 ? selectedItems : undefined,
-      attachment: fileDetails ? {
-        key: fileDetails.key,
-        name: fileDetails.name,
-        type: fileDetails.type,
-      } : undefined,
+      attachment: fileDetails
+        ? {
+            key: fileDetails.key,
+            name: fileDetails.name,
+            type: fileDetails.type,
+          }
+        : undefined,
     } as UserMessageType
 
     // Create thinking message
@@ -136,7 +138,7 @@ export const createRequestManager = (
       content: '',
       planId,
     }
-    
+
     // Start thinking phase
     updateLoadingStage(planId, 'thinking', 0)
     setIsLoading(true)
@@ -146,7 +148,7 @@ export const createRequestManager = (
       userMessage,
       thinkingMessage,
       abortController,
-      requestKey
+      requestKey,
     }
   }
 
@@ -190,16 +192,9 @@ export const createRequestManager = (
       toastMessage = 'AI quota exhausted'
       chatMessage = 'AI quota exhausted'
 
-      // Show toast with upgrade option for quota exceeded
       toast.error(toastMessage, {
-        description: 'You have reached the AI usage limit. Please upgrade your plan or wait for the next billing cycle.',
-        action: {
-          label: 'Upgrade Plan',
-          onClick: () => {
-            // Navigate to pricing page or billing portal
-            window.open('/#price', '_blank')
-          }
-        },
+        description:
+          'The AI usage limit for this workspace has been reached. Contact tech@travelresorts.com if you need it raised.',
         duration: 8000,
       })
     } else if (error?.type === 'UNAUTHORIZED') {
@@ -236,10 +231,7 @@ export const createRequestManager = (
   /**
    * Clean up request
    */
-  const cleanupRequest = (
-    requestKey: string,
-    abortController: AbortController
-  ) => {
+  const cleanupRequest = (requestKey: string, abortController: AbortController) => {
     activeRequestsRef.current.delete(requestKey)
     if (currentAbortControllerRef.current === abortController) {
       currentAbortControllerRef.current = null
@@ -252,6 +244,6 @@ export const createRequestManager = (
     stopGeneration,
     prepareMessageSend,
     handleSendError,
-    cleanupRequest
+    cleanupRequest,
   }
-} 
+}

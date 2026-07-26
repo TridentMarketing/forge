@@ -20,22 +20,7 @@
 
 'use client'
 
-import {
-  BellIcon,
-  CreditCardIcon,
-  LogOutIcon,
-  MonitorSmartphoneIcon,
-  MoonIcon,
-  MoreVerticalIcon,
-  SettingsIcon,
-  SunIcon,
-  UserCircleIcon,
-} from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { authClient } from '@libra/auth/auth-client'
-import { toast } from 'sonner'
-
 import { Avatar, AvatarFallback, AvatarImage } from '@libra/ui/components/avatar'
 import { Badge } from '@libra/ui/components/badge'
 import {
@@ -54,7 +39,25 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@libra/ui/components/sidebar'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@libra/ui/components/tooltip'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@libra/ui/components/tooltip'
+import {
+  BellIcon,
+  LogOutIcon,
+  MonitorSmartphoneIcon,
+  MoonIcon,
+  MoreVerticalIcon,
+  SettingsIcon,
+  SunIcon,
+  UserCircleIcon,
+} from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
 import * as m from '@/paraglide/messages'
 
 export function NavUser({
@@ -73,7 +76,7 @@ export function NavUser({
   const [isDark, setIsDark] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
   const [isSigningOut, setIsSigningOut] = useState(false)
-  
+
   // Default values if not provided
   const status = user.status || 'online'
   const notificationCount = user.notificationCount || 0
@@ -91,7 +94,7 @@ export function NavUser({
         setIsDark(false)
         document.documentElement.classList.remove('dark')
       }
-      
+
       // Log theme initialization
     } catch (error) {
     } finally {
@@ -129,10 +132,9 @@ export function NavUser({
         document.documentElement.classList.remove('dark')
         localStorage.setItem('theme', 'light')
       }
-      
+
       // Log theme change
-    } catch (error) {
-    }
+    } catch (error) {}
 
     // Debounce delay
     setTimeout(() => setIsLoaded(true), 300)
@@ -141,11 +143,6 @@ export function NavUser({
   // Handle navigation to session page
   const handleNavigateToSession = () => {
     router.push('/dashboard/session')
-  }
-
-  // Handle navigation to billing page
-  const handleNavigateToBilling = () => {
-    router.push('/dashboard/billing')
   }
 
   // Handle sign out
@@ -158,7 +155,7 @@ export function NavUser({
       await authClient.signOut({
         fetchOptions: {
           onSuccess: () => {
-            router.push("/login")
+            router.push('/login')
           },
         },
       })
@@ -179,17 +176,21 @@ export function NavUser({
                 size='lg'
                 className='group relative data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground hover:bg-sidebar-accent/50 transition-colors duration-200'
               >
-                <div className="relative">
+                <div className='relative'>
                   <Avatar className='h-8 w-8 rounded-lg ring-2 ring-transparent group-hover:ring-primary/20 transition-all duration-300'>
-                    <AvatarImage src={user.avatar} alt={user.name} className="object-cover" />
-                    <AvatarFallback className='rounded-lg bg-primary/10 text-primary font-semibold'>{user.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                    <AvatarImage src={user.avatar} alt={user.name} className='object-cover' />
+                    <AvatarFallback className='rounded-lg bg-primary/10 text-primary font-semibold'>
+                      {user.name.substring(0, 2).toUpperCase()}
+                    </AvatarFallback>
                   </Avatar>
-                  <span className={`absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full ${getStatusColor()} ring-2 ring-white`} />
+                  <span
+                    className={`absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full ${getStatusColor()} ring-2 ring-white`}
+                  />
                 </div>
                 <span className='truncate text-xs text-muted-foreground'>{user.email}</span>
 
                 {notificationCount > 0 && (
-                  <Badge variant="destructive" className="ml-auto mr-1 px-1.5 py-0.5 text-xs">
+                  <Badge variant='destructive' className='ml-auto mr-1 px-1.5 py-0.5 text-xs'>
                     {notificationCount}
                   </Badge>
                 )}
@@ -205,17 +206,21 @@ export function NavUser({
             >
               <DropdownMenuLabel className='p-0 font-normal'>
                 <div className='flex items-center gap-3 p-3 text-left text-sm border-b border-border/20'>
-                  <div className="relative">
+                  <div className='relative'>
                     <Avatar className='h-10 w-10 rounded-lg'>
-                      <AvatarImage src={user.avatar} alt={user.name} className="object-cover" />
-                      <AvatarFallback className='rounded-lg bg-primary/10 text-primary font-semibold'>{user.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                      <AvatarImage src={user.avatar} alt={user.name} className='object-cover' />
+                      <AvatarFallback className='rounded-lg bg-primary/10 text-primary font-semibold'>
+                        {user.name.substring(0, 2).toUpperCase()}
+                      </AvatarFallback>
                     </Avatar>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <span className={`absolute bottom-0 right-0 h-3 w-3 rounded-full ${getStatusColor()} ring-2 ring-white cursor-pointer`} />
+                        <span
+                          className={`absolute bottom-0 right-0 h-3 w-3 rounded-full ${getStatusColor()} ring-2 ring-white cursor-pointer`}
+                        />
                       </TooltipTrigger>
-                      <TooltipContent side="right">
-                        <p className="capitalize">{status}</p>
+                      <TooltipContent side='right'>
+                        <p className='capitalize'>{status}</p>
                       </TooltipContent>
                     </Tooltip>
                   </div>
@@ -225,43 +230,48 @@ export function NavUser({
                   </div>
                 </div>
               </DropdownMenuLabel>
-              <div className="p-2">
+              <div className='p-2'>
                 <DropdownMenuGroup>
                   {/* <DropdownMenuItem className="cursor-pointer rounded-md transition-colors hover:bg-accent/80">
                     <UserCircleIcon className="mr-2 h-4 w-4" />
                     <span>{m['dashboard.navUser.profile']()}</span>
                   </DropdownMenuItem> */}
                   <DropdownMenuItem
-                    className="cursor-pointer rounded-md transition-colors hover:bg-accent/80"
+                    className='cursor-pointer rounded-md transition-colors hover:bg-accent/80'
                     onClick={handleNavigateToSession}
                   >
-                    <MonitorSmartphoneIcon className="mr-2 h-4 w-4" />
+                    <MonitorSmartphoneIcon className='mr-2 h-4 w-4' />
                     <span>{m['dashboard.navUser.session']()}</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    className="cursor-pointer rounded-md transition-colors hover:bg-accent/80"
-                    onClick={handleNavigateToBilling}
-                  >
-                    <CreditCardIcon className="mr-2 h-4 w-4" />
-                    <span>{m['dashboard.navUser.billing']()}</span>
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                  <DropdownMenuItem 
-                    className="cursor-pointer rounded-md transition-colors hover:bg-accent/80" 
+                  <DropdownMenuItem
+                    className='cursor-pointer rounded-md transition-colors hover:bg-accent/80'
                     onClick={toggleTheme}
                     disabled={!isLoaded}
                   >
-                    <div className="relative mr-2 h-4 w-4">
-                      <SunIcon className={`absolute inset-0 h-full w-full transition-all duration-300 ${
-                        isDark ? 'transform opacity-100 rotate-0' : 'transform opacity-0 rotate-90'
-                      }`} />
-                      <MoonIcon className={`absolute inset-0 h-full w-full transition-all duration-300 ${
-                        isDark ? 'transform opacity-0 -rotate-90' : 'transform opacity-100 rotate-0'
-                      }`} />
+                    <div className='relative mr-2 h-4 w-4'>
+                      <SunIcon
+                        className={`absolute inset-0 h-full w-full transition-all duration-300 ${
+                          isDark
+                            ? 'transform opacity-100 rotate-0'
+                            : 'transform opacity-0 rotate-90'
+                        }`}
+                      />
+                      <MoonIcon
+                        className={`absolute inset-0 h-full w-full transition-all duration-300 ${
+                          isDark
+                            ? 'transform opacity-0 -rotate-90'
+                            : 'transform opacity-100 rotate-0'
+                        }`}
+                      />
                     </div>
-                    <span>{isDark ? m['dashboard.navUser.switchToLight']() : m['dashboard.navUser.switchToDark']()}</span>
+                    <span>
+                      {isDark
+                        ? m['dashboard.navUser.switchToLight']()
+                        : m['dashboard.navUser.switchToDark']()}
+                    </span>
                   </DropdownMenuItem>
                   {/* <DropdownMenuItem className="cursor-pointer rounded-md transition-colors hover:bg-accent/80">
                     <SettingsIcon className="mr-2 h-4 w-4" />
@@ -269,13 +279,17 @@ export function NavUser({
                   </DropdownMenuItem> */}
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem 
-                  className="cursor-pointer rounded-md text-destructive transition-colors hover:bg-destructive/10"
+                <DropdownMenuItem
+                  className='cursor-pointer rounded-md text-destructive transition-colors hover:bg-destructive/10'
                   onClick={handleSignOut}
                   disabled={isSigningOut}
                 >
-                  <LogOutIcon className="mr-2 h-4 w-4" />
-                  <span>{isSigningOut ? m['dashboard.navUser.loggingOut']() : m['dashboard.navUser.logout']()}</span>
+                  <LogOutIcon className='mr-2 h-4 w-4' />
+                  <span>
+                    {isSigningOut
+                      ? m['dashboard.navUser.loggingOut']()
+                      : m['dashboard.navUser.logout']()}
+                  </span>
                 </DropdownMenuItem>
               </div>
             </DropdownMenuContent>
