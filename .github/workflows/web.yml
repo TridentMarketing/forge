@@ -221,6 +221,34 @@ jobs:
           fi
         continue-on-error: false
 
+      - name: Push runtime secrets to the Worker
+        if: github.event_name != 'pull_request'
+        run: |
+          # NEXT_PUBLIC_* vars get inlined into the JS bundle at build time and
+          # ship via `vars` in wrangler.jsonc. Server-only secrets (auth, AI
+          # provider keys, GitHub OAuth) are never bundled — they must be set on
+          # the deployed Worker directly via `wrangler secret bulk`.
+          export CLOUDFLARE_API_TOKEN="${{ secrets.CLOUDFLARE_API_TOKEN }}"
+          export CLOUDFLARE_ACCOUNT_ID="${{ secrets.CLOUDFLARE_ACCOUNT_ID }}"
+          cd apps/web
+          cat <<EOF | bunx wrangler secret bulk --name forge
+          {
+            "BETTER_AUTH_SECRET": "${{ secrets.BETTER_AUTH_SECRET }}",
+            "BETTER_GITHUB_CLIENT_ID": "${{ secrets.BETTER_GITHUB_CLIENT_ID }}",
+            "BETTER_GITHUB_CLIENT_SECRET": "${{ secrets.BETTER_GITHUB_CLIENT_SECRET }}",
+            "ANTHROPIC_API_KEY": "${{ secrets.ANTHROPIC_API_KEY }}",
+            "E2B_API_KEY": "${{ secrets.E2B_API_KEY }}",
+            "POSTGRES_URL": "${{ secrets.POSTGRES_URL }}",
+            "RESEND_API_KEY": "${{ secrets.RESEND_API_KEY }}",
+            "RESEND_FROM": "${{ secrets.RESEND_FROM }}",
+            "TURNSTILE_SECRET_KEY": "${{ secrets.TURNSTILE_SECRET_KEY }}",
+            "CLOUDFLARE_ACCOUNT_ID": "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}",
+            "CLOUDFLARE_API_TOKEN": "${{ secrets.CLOUDFLARE_API_TOKEN }}",
+            "DATABASE_ID": "${{ secrets.DATABASE_ID }}"
+          }
+          EOF
+        continue-on-error: false
+
       - name: Create deployment
         uses: chrnorm/deployment-action@v2
         if: success() && github.event_name != 'pull_request'
