@@ -38,6 +38,28 @@ import {
 import { createPlanDetails, fetchPlanLimitsWithCache, getLatestActiveLimit } from './utils'
 
 /**
+ * Forge has no billing — the FREE-plan quota row that Libra normally seeds via a
+ * Stripe `customer.create` webhook (see packages/better-auth-stripe) never gets
+ * created, since Stripe is stubbed out (`stripeClient: {} as any`). Rather than
+ * replicate that seeding flow against a real Postgres database for an 8-person
+ * internal tool, quota checks are bypassed entirely: every check succeeds, and
+ * usage/quota displays report a synthetic "unlimited" status instead of querying
+ * the (nonexistent) subscription_limit row.
+ */
+const FORGE_UNLIMITED_QUOTA = true
+
+const UNLIMITED_SUBSCRIPTION_USAGE: SubscriptionUsage = {
+  aiNums: 999999,
+  aiNumsLimit: 999999,
+  seats: 999999,
+  seatsLimit: 999999,
+  projectNums: 999999,
+  projectNumsLimit: 999999,
+  plan: PLAN_TYPES.FREE,
+  planDetails: { free: null, paid: null },
+}
+
+/**
  * Create the default usage return value
  */
 function createDefaultUsage(
@@ -243,6 +265,8 @@ export async function createOrUpdateSubscriptionLimit(
  * @returns Promise<boolean> - true if deduction successful, false if no quota available
  */
 export async function checkAndUpdateAIMessageUsage(organizationId: string): Promise<boolean> {
+  if (FORGE_UNLIMITED_QUOTA) return true
+
   const db = await getDbAsync()
   log.subscription('info', 'AI message deduction started', {
     organizationId,
@@ -420,6 +444,8 @@ async function attemptPaidPlanEnhanceDeduction(
  * @returns Promise<boolean> - true if deduction successful, false if no quota available
  */
 export async function checkAndUpdateEnhanceUsage(organizationId: string): Promise<boolean> {
+  if (FORGE_UNLIMITED_QUOTA) return true
+
   const db = await getDbAsync()
   log.subscription('info', 'Enhance deduction started', {
     organizationId,
@@ -685,6 +711,8 @@ export async function cancelSubscriptionLimits(organizationId: string) {
  * Get current resource usage for an organization
  */
 export async function getSubscriptionUsage(organizationId: string): Promise<SubscriptionUsage> {
+  if (FORGE_UNLIMITED_QUOTA) return UNLIMITED_SUBSCRIPTION_USAGE
+
   return await withDatabaseErrorHandling(async () => {
     const db = await getDbAsync()
 
@@ -1276,6 +1304,15 @@ export async function getCombinedProjectQuota(organizationId: string): Promise<{
     paid: { projectNums: number; projectNumsLimit: number; plan: string; periodEnd: string } | null
   }
 }> {
+  if (FORGE_UNLIMITED_QUOTA) {
+    return {
+      projectNums: UNLIMITED_SUBSCRIPTION_USAGE.projectNums,
+      projectNumsLimit: UNLIMITED_SUBSCRIPTION_USAGE.projectNumsLimit,
+      plan: UNLIMITED_SUBSCRIPTION_USAGE.plan,
+      planDetails: { free: null, paid: null },
+    }
+  }
+
   log.subscription('info', 'Getting combined project quota', {
     organizationId,
     operation: 'get_combined_quota'
@@ -1556,6 +1593,8 @@ export async function restoreProjectQuotaOnDeletion(organizationId: string): Pro
  * @returns Promise<boolean> - true if deduction successful, false if no quota available
  */
 export async function checkAndUpdateProjectUsage(organizationId: string): Promise<boolean> {
+  if (FORGE_UNLIMITED_QUOTA) return true
+
   const db = await getDbAsync()
   log.subscription('info', 'Project deduction started', {
     organizationId,
