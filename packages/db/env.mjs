@@ -29,4 +29,7 @@ export const env = createEnv({
   runtimeEnv: {
     POSTGRES_URL: process.env['POSTGRES_URL'],
   },
+  // CI/CD sets unused secrets to empty strings rather than omitting them;
+  // treat '' the same as unset so optional validators don't reject it.
+  emptyStringAsUndefined: true,
 })

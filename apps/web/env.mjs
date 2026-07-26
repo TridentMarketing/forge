@@ -122,4 +122,7 @@ export const env = createEnv({
     CLOUDFLARE_API_TOKEN: process.env['CLOUDFLARE_API_TOKEN'],
     TURNSTILE_SECRET_KEY: process.env['TURNSTILE_SECRET_KEY'],
   },
+  // CI/CD sets unused secrets to empty strings rather than omitting them;
+  // treat '' the same as unset so optional validators don't reject it.
+  emptyStringAsUndefined: true,
 })
