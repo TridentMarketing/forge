@@ -254,7 +254,9 @@ jobs:
         uses: chrnorm/deployment-action@v2
         if: success() && github.event_name != 'pull_request'
         with:
-          token: ${{ secrets.LIBRA_GITHUB_TOKEN }}
+          # Use the workflow's built-in token instead of the never-configured
+          # LIBRA_GITHUB_TOKEN secret — the job already has `deployments: write`.
+          token: ${{ secrets.GITHUB_TOKEN }}
           environment: production
           environment-url: https://forge.tmidev.net
           description: 'Deployed version ${{ steps.version.outputs.version }}'
