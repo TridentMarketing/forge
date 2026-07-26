@@ -31,10 +31,21 @@ import {
 import { AlertCircle, Mail, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 
+// useSearchParams() needs a Suspense boundary above it or static prerender
+// bails out and fails the build (surfaced once the paraglide middleware that
+// kept every page dynamic was removed).
 export default function GitHubErrorPage() {
+  return (
+    <Suspense fallback={null}>
+      <GitHubErrorContent />
+    </Suspense>
+  )
+}
+
+function GitHubErrorContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const reason = searchParams.get('reason')
