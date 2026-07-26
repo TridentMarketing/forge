@@ -82,7 +82,20 @@ export const generateStreamResponse = async (
       providerOptions: buildProviderOptions(),
     })
 
-    return streamResult.textStream
+    // `textStream` silently drops the AI SDK's 'error' stream part — provider
+    // errors mid-generation (rate limits, context-length overruns, etc.) never
+    // surface, and the client just gets a 200 with an empty body. Use
+    // `fullStream` instead so we can detect and throw on error parts, which
+    // also lets tryCatch() below report the real failure.
+    return (async function* () {
+      for await (const part of streamResult.fullStream) {
+        if (part.type === 'text-delta') {
+          yield part.text
+        } else if (part.type === 'error') {
+          throw part.error instanceof Error ? part.error : new Error(String(part.error))
+        }
+      }
+    })()
   })
 
   if (error) {
