@@ -112,6 +112,13 @@ jobs:
           bun run prebuild
         continue-on-error: false
 
+      - name: Debug — Cloudflare auth check
+        run: |
+          export CLOUDFLARE_API_TOKEN="${{ secrets.CLOUDFLARE_API_TOKEN }}"
+          export CLOUDFLARE_ACCOUNT_ID="${{ secrets.CLOUDFLARE_ACCOUNT_ID }}"
+          cd apps/web
+          bunx wrangler whoami || true
+
       - name: Build and Deploy/Upload
         id: deploy
         run: |
@@ -120,7 +127,8 @@ jobs:
 
           # Temporarily verbose while debugging first deploy — WRANGLER_LOG=error was
           # swallowing the actual failure reason. Revert to error once deploys are stable.
-          export WRANGLER_LOG=warn
+          export WRANGLER_LOG=debug
+          export CI=true
 
           # Public URLs (safe to show)
           export NEXT_PUBLIC_APP_URL="${{ secrets.NEXT_PUBLIC_APP_URL }}"
