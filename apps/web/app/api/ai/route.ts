@@ -408,8 +408,25 @@ export async function POST(request: Request) {
       // Convert ReadableStream to AsyncIterable
       const asyncIterable = streamToAsyncIterable(genStream)
 
+      // TEMP DEBUG: tee the raw model output alongside parsing so we can see
+      // exactly what the model returned even if the XML parser finds nothing.
+      let debugRawOutput = ''
+      const debugTeeIterable = (async function* () {
+        for await (const chunk of asyncIterable) {
+          debugRawOutput += chunk
+          yield chunk
+        }
+        log.ai('info', 'DEBUG raw model output', {
+          operation: 'POST',
+          projectId: requestData.projectId,
+          planId: requestData.planId,
+          rawLength: debugRawOutput.length,
+          rawPreview: debugRawOutput.slice(0, 4000),
+        })
+      })()
+
       // Get parsed readable stream
-      const parsedReadable = await streamParsePlan(asyncIterable, userMessage, planId, projectId)
+      const parsedReadable = await streamParsePlan(debugTeeIterable, userMessage, planId, projectId)
 
       log.ai('info', 'AI route request completed successfully', {
         operation: 'POST',
