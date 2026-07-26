@@ -70,9 +70,12 @@ export const selectModel = (
  * Build provider options for AI model
  */
 export const buildProviderOptions = () => ({
-  anthropic: {
-    thinking: { type: 'enabled', budgetTokens: 4096 },
-  } satisfies AnthropicProviderOptions,
+  // claude-sonnet-5 rejects the legacy `thinking.type: 'enabled'` shape used by
+  // older Claude models (it wants 'adaptive' + output_config.effort instead,
+  // which the installed @ai-sdk/anthropic version doesn't yet model). Extended
+  // thinking isn't required for Forge's use case, so leave it unset entirely
+  // rather than sending an incompatible shape.
+  anthropic: {} satisfies AnthropicProviderOptions,
   openai: {
     ...(env.REASONING_ENABLED ? { reasoningEffort: 'medium' } : {}),
   },
