@@ -36,15 +36,9 @@ interface HeroButtonsGroupProps {
  */
 const getDefaultButtons = (): HeroButtonProps[] => [
   {
-    href: siteConfig.links.forum,
-    text: m['hero.examples.buttons.forum'](),
-    variant: 'default',
-    icon: <MdForum className='mr-2 size-4' />,
-  },
-  {
     href: siteConfig.links.github,
     text: m['hero.examples.buttons.github'](),
-    variant: 'secondary',
+    variant: 'default',
     icon: <Github className='mr-2 size-4' />,
   },
 ]

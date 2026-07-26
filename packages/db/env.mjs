@@ -23,7 +23,7 @@ import { z } from 'zod'
 
 export const env = createEnv({
   server: {
-    POSTGRES_URL: z.string().min(1),
+    POSTGRES_URL: z.string().min(1).optional(),
   },
   client: {},
   runtimeEnv: {

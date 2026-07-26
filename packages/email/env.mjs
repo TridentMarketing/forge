@@ -23,8 +23,8 @@ import { z } from 'zod'
 
 export const env = createEnv({
   server: {
-    RESEND_FROM: z.string().min(1).email(),
-    RESEND_API_KEY: z.string().min(1),
+    RESEND_FROM: z.string().email().optional().default('noreply@travelresorts.com'),
+    RESEND_API_KEY: z.string().optional().default(''),
   },
   runtimeEnv: {
     RESEND_FROM: process.env['RESEND_FROM'],

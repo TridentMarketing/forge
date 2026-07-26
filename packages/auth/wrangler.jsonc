@@ -1,9 +1,10 @@
 {
+  "name": "forge-auth",
   "d1_databases": [
     {
       "binding": "DATABASE",
-      "database_name": "libra",
-      "database_id": "67910497-d3de-4085-ba2f-70c7d4ba5983",
+      "database_name": "forge-auth",
+      "database_id": "5ee77756-eb54-4831-bb6d-bc51da4d3850",
       "migrations_dir": "./db/migrations"
     }
   ]

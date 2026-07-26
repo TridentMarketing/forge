@@ -21,5 +21,7 @@
 import { initAuth } from '@libra/auth/auth-server'
 import { toNextJsHandler } from 'better-auth/next-js'
 
+export const dynamic = 'force-dynamic'
+
 const auth = await initAuth();
 export const { GET, POST } = toNextJsHandler(auth.handler)

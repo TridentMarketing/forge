@@ -63,9 +63,8 @@ export default function FooterSection({
       id: 'contact',
       title: m['footer.contact'](),
       links: [
-        { id: 'forum', text: m['footer.community'](), href: siteConfig.links.forum },
-        { id: 'twitter', text: m['footer.twitter'](), href: siteConfig.links.twitter },
         { id: 'github', text: m['footer.github'](), href: siteConfig.links.github },
+        { id: 'email', text: m['footer.contact'](), href: siteConfig.links.email },
       ],
     },
   ],

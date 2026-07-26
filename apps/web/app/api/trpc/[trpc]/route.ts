@@ -19,6 +19,8 @@
  */
 
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
+
+export const dynamic = 'force-dynamic'
 import type { NextRequest } from 'next/server'
 
 import { appRouter, createTRPCContext } from '@libra/api'

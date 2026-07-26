@@ -28,9 +28,9 @@ export const env = createEnv({
     STRIPE_SECRET_KEY: z.string().optional(),
     STRIPE_WEBHOOK_SECRET: z.string().optional(),
     CLOUDFLARE_ACCOUNT_ID: z.string().min(1),
-    DATABASE_ID: z.string().min(1),
+    DATABASE_ID: z.string().optional(),
     CLOUDFLARE_API_TOKEN: z.string().min(1),
-    TURNSTILE_SECRET_KEY: z.string().min(1),
+    TURNSTILE_SECRET_KEY: z.string().optional(),
     ADMIN_USER_IDS: z.string().optional(),
   },
   runtimeEnv: {

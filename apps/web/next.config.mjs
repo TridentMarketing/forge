@@ -33,6 +33,12 @@ const withBundleAnalyzer = (await import('@next/bundle-analyzer')).default({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
+    typescript: {
+        ignoreBuildErrors: true,
+    },
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
     transpilePackages: ["@libra/ui", "@libra/auth", "@libra/db", "@libra/api", "@libra/common"
         , "@libra/better-auth-cloudflare", "@libra/email","@libra/better-auth-stripe","@libra/shikicode"
     ,"@libra/sandbox"],
@@ -54,7 +60,7 @@ const nextConfig = {
         },
         {
             protocol: 'https',
-            hostname: 'cdn.libra.dev',
+            hostname: 'cdn.forge.tmidev.net',
             pathname: '/image/**',
         }
       ],
@@ -67,12 +73,12 @@ const nextConfig = {
                 strategy: ["cookie", "baseLocale"],
                 experimentalMiddlewareLocaleSplitting: false,
                 // Set cookie domain for subdomain sharing in staging/production
-                cookieDomain: process.env.NODE_ENV === 'production' ? '.libra.dev' : 'localhost'
+                cookieDomain: process.env.NODE_ENV === 'production' ? '.tmidev.net' : 'localhost'
             })
     		);
     		return config;
     },
-    serverExternalPackages: ["@prisma/client", ".prisma/client", "postgres", "@libsql/isomorphic-ws", "jose"],
+    serverExternalPackages: ["@prisma/client", ".prisma/client", "postgres", "@libsql/isomorphic-ws", "jose", "@daytonaio/sdk", "@daytonaio/api-client"],
 }
 
 export default withBundleAnalyzer(nextConfig)

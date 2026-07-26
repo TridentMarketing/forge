@@ -19,6 +19,8 @@
  */
 
 import { eq } from 'drizzle-orm'
+
+export const dynamic = 'force-dynamic'
 import { headers } from 'next/headers'
 import { getCloudflareContext } from '@opennextjs/cloudflare'
 import { streamGenerateApp, streamGenerateAppForFileEdit } from '@/ai/generate'

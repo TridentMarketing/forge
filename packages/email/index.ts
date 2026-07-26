@@ -21,6 +21,7 @@
 import { Resend } from 'resend';
 import {env} from "./env.mjs";
 
-export const resend = new Resend(env.RESEND_API_KEY);
+// Forge: email disabled — GitHub OAuth is the only auth method
+export const resend = new Resend(env.RESEND_API_KEY || 're_disabled_forge_internal');
 
 export * from './utils/email'
