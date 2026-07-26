@@ -345,7 +345,27 @@ async function createSandboxWithLock(
 }
 
 /**
+ * Working directory for the Vite template inside the sandbox.
+ */
+const SANDBOX_PROJECT_DIR = '/home/user/vite-shadcn-template-libra'
+
+/**
  * Synchronize files to container
+ *
+ * When the AI adds a new dependency it edits package.json and emits a
+ * `<action type="command">` telling the user it ran `bun add <package>` —
+ * but nothing previously executed that command inside the sandbox
+ * (apps/web/components/ide/libra/chat-panel/hooks/use-message-processors.ts's
+ * handleCommandMessage only ever appends it to chat history for display).
+ * The result: package.json says the dependency exists, but node_modules
+ * never gets it, and the sandbox's dev server throws
+ * "Failed to resolve import" on every subsequent load.
+ *
+ * Fix: whenever message history contains a diff touching package.json, run
+ * `bun install` after writing files so node_modules actually matches what
+ * the AI declared. This is idempotent — bun no-ops quickly when there's
+ * nothing new to install — so it's safe to check unconditionally rather
+ * than trying to parse and de-duplicate individual command actions.
  */
 async function syncFilesToContainer(container: ISandbox, messageHistory: string): Promise<void> {
   const [, syncError] = await tryCatch(async () => {
@@ -356,12 +376,21 @@ async function syncFilesToContainer(container: ISandbox, messageHistory: string)
     const filesToWrite = Object.entries(fileMap)
       .filter(([path]) => !isExcludedFile(path))
       .map(([path, fileInfo]) => ({
-        path: `/home/user/vite-shadcn-template-libra/${path}`,
+        path: `${SANDBOX_PROJECT_DIR}/${path}`,
         data:
           fileInfo.type === 'file' && !fileInfo.isBinary
             ? fileInfo.content
             : JSON.stringify(fileInfo.content),
       }))
+
+    // Check if package.json was ever touched by an AI-generated diff. If so,
+    // dependencies may have changed and node_modules needs to be refreshed.
+    const packageJsonChanged = history.some(
+      (message: any) =>
+        message?.type === 'diff' &&
+        Array.isArray(message.diff) &&
+        message.diff.some((d: any) => d?.path === 'package.json')
+    )
 
     // Check if container is an abstraction layer instance (ISandbox)
     if (container.writeFiles && typeof container.writeFiles === 'function') {
@@ -381,6 +410,19 @@ async function syncFilesToContainer(container: ISandbox, messageHistory: string)
           .map((r: { path?: string; error?: string }) => `${r.path || 'Unknown path'}: ${r.error || 'Unknown error'}`)
           .join(', ')
         throw new Error(`Failed to sync files: ${errorDetails}`)
+      }
+
+      if (packageJsonChanged && typeof container.executeCommand === 'function') {
+        const installResult = await container.executeCommand('bun install', {
+          workingDirectory: SANDBOX_PROJECT_DIR,
+          timeoutMs: CONTAINER_TIMEOUTS.API_DEFAULT,
+        })
+
+        if (installResult.exitCode !== 0) {
+          throw new Error(
+            `bun install failed with exit code ${installResult.exitCode}: ${installResult.stderr}`
+          )
+        }
       }
     }
     // Fallback for native E2B container
