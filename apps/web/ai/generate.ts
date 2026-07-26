@@ -74,15 +74,45 @@ export const generateStreamResponse = async (
     const selectedModel = selectModel(context.userPlan, config.modelId, config.isFileEdit)
 
     // Generate response
+    //
+    // maxOutputTokens matters a lot here: this project's system prompt + full
+    // file context alone can run 80k+ input tokens, and Claude's extended
+    // thinking/reasoning tokens are drawn from the same output budget as the
+    // actual <plan> XML response. Without an explicit cap, generation for any
+    // non-trivial multi-file request hit Anthropic's default 4096-token
+    // ceiling entirely on reasoning, finished with finishReason: 'length',
+    // and produced zero text — the client got a 200 with a silently empty
+    // body and hung on "Thinking..." forever. Raise the ceiling well above
+    // what a full landing-page or small-app generation needs.
     const streamResult = streamText({
       model: myProvider.languageModel(selectedModel),
       system: systemPromptText,
       messages,
+      maxOutputTokens: 32000,
       ...(abortSignal && { abortSignal }),
       providerOptions: buildProviderOptions(),
     })
 
-    return streamResult.textStream
+    // `textStream` silently drops the AI SDK's 'error' stream part — provider
+    // errors mid-generation (rate limits, context-length overruns, etc.) never
+    // surface, and the client just gets a 200 with an empty body. Use
+    // `fullStream` instead so we can detect and throw on error parts, and log
+    // non-'stop' finish reasons (e.g. 'length', hitting maxOutputTokens) since
+    // those also produce an empty-looking response without ever throwing.
+    return (async function* () {
+      for await (const part of streamResult.fullStream) {
+        if (part.type === 'text-delta') {
+          yield part.text
+        } else if (part.type === 'error') {
+          throw part.error instanceof Error ? part.error : new Error(String(part.error))
+        } else if (part.type === 'finish' && part.finishReason !== 'stop') {
+          console.error('streamText finished with non-stop reason', {
+            finishReason: part.finishReason,
+            usage: part.totalUsage,
+          })
+        }
+      }
+    })()
   })
 
   if (error) {

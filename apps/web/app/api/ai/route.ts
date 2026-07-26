@@ -33,26 +33,6 @@ import { project, projectAsset } from '@libra/db/schema/project-schema'
 
 // Type definitions are now handled by the schema validation
 
-// Utility function to convert ReadableStream<string> to AsyncIterable<string>
-async function* streamToAsyncIterable(
-  stream: ReadableStream<string>
-): AsyncGenerator<string, void, unknown> {
-  const reader = stream.getReader()
-
-  try {
-    while (true) {
-      const { done, value } = await reader.read()
-      if (done) break
-
-      if (value) {
-        yield value
-      }
-    }
-  } finally {
-    reader.releaseLock()
-  }
-}
-
 // Function to fetch image data from CDN
 async function fetchImageFromCDN(
   key: string,
@@ -405,8 +385,10 @@ export async function POST(request: Request) {
               selectedModelId // Pass selected model ID
             )
 
-      // Convert ReadableStream to AsyncIterable
-      const asyncIterable = streamToAsyncIterable(genStream)
+      // streamGenerateApp/streamGenerateAppForFileEdit now return an
+      // AsyncIterable<string> directly (see apps/web/ai/generate.ts) rather
+      // than a ReadableStream, so it can be consumed without conversion.
+      const asyncIterable = genStream
 
       // Get parsed readable stream
       const parsedReadable = await streamParsePlan(asyncIterable, userMessage, planId, projectId)
