@@ -112,12 +112,16 @@ jobs:
           bun run prebuild
         continue-on-error: false
 
-      - name: Debug — Cloudflare auth check
+      - name: Deploy opennext-cache Worker (dependency of apps/web)
         run: |
+          # apps/web/wrangler.jsonc binds Durable Objects (DOQueueHandler,
+          # DOShardedTagCache) from the external "opennext-cache" script. That
+          # Worker must exist before `wrangler deploy` for apps/web can succeed,
+          # otherwise Cloudflare rejects the binding with error code 10061.
           export CLOUDFLARE_API_TOKEN="${{ secrets.CLOUDFLARE_API_TOKEN }}"
           export CLOUDFLARE_ACCOUNT_ID="${{ secrets.CLOUDFLARE_ACCOUNT_ID }}"
-          cd apps/web
-          bunx wrangler whoami || true
+          cd apps/opennext-cache
+          bunx wrangler deploy
 
       - name: Build and Deploy/Upload
         id: deploy
