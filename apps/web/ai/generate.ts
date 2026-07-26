@@ -88,13 +88,19 @@ export const generateStreamResponse = async (
     // `fullStream` instead so we can detect and throw on error parts, which
     // also lets tryCatch() below report the real failure.
     return (async function* () {
+      const partTypesSeen: string[] = []
       for await (const part of streamResult.fullStream) {
+        partTypesSeen.push(part.type)
         if (part.type === 'text-delta') {
           yield part.text
         } else if (part.type === 'error') {
+          console.error('DEBUG streamText error part', JSON.stringify(part))
           throw part.error instanceof Error ? part.error : new Error(String(part.error))
+        } else if (part.type === 'finish') {
+          console.error('DEBUG streamText finish part', JSON.stringify(part))
         }
       }
+      console.error('DEBUG all part types seen', JSON.stringify(partTypesSeen))
     })()
   })
 
