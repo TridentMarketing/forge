@@ -129,9 +129,10 @@ jobs:
           # Set environment variables securely (hidden from logs)
           echo "Setting up environment variables..."
 
-          # Temporarily verbose while debugging first deploy — WRANGLER_LOG=error was
-          # swallowing the actual failure reason. Revert to error once deploys are stable.
-          export WRANGLER_LOG=debug
+          # WRANGLER_LOG=error previously suppressed the real reason wrangler
+          # deploys failed (missing Durable Object binding, Worker size limit).
+          # Keep it at warn so genuine failures still surface useful detail.
+          export WRANGLER_LOG=warn
           export CI=true
 
           # Public URLs (safe to show)
