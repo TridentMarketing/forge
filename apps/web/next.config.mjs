@@ -49,8 +49,10 @@ const nextConfig = {
         // ppr: true,
     },
     images: {
-      loader: 'custom',
-      loaderFile: './imageLoader.ts',
+      // Internal tool: serve images as-is. The previous custom Cloudflare loader
+      // rewrote every next/image to /cdn-cgi/image/... which 404s unless Image
+      // Transformations is enabled on the zone — broken images across the app.
+      unoptimized: true,
       remotePatterns: [
         {
           protocol: 'http',
