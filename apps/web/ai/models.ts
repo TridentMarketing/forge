@@ -26,18 +26,20 @@ import type { AnthropicProviderOptions } from '@ai-sdk/anthropic'
 // Model Configuration and Selection
 // ============================================================================
 
+// Forge is single-model: every id — including legacy ids that may linger in
+// stored user preferences — resolves to the Claude Sonnet 5 slot.
 const MODEL_MAPPING: Record<string, string> = {
-  'gpt-4-1': 'chat-model-reasoning-azure',
-  'gpt-4-1-mini': 'chat-model-reasoning-azure-mini',
+  'claude-sonnet-5': 'chat-model-reasoning-anthropic',
   'claude-4-0-sonnet': 'chat-model-reasoning-anthropic',
-  // 'databricks-claude-3-7-sonnet': 'chat-model-databricks-claude',
-  'gemini-2-5-pro': 'chat-model-reasoning-google',
+  'gpt-4-1': 'chat-model-reasoning-anthropic',
+  'gpt-4-1-mini': 'chat-model-reasoning-anthropic',
+  'gemini-2-5-pro': 'chat-model-reasoning-anthropic',
 } as const
 
 const DEFAULT_MODELS = {
-  FILE_EDIT: 'gpt-4-1-mini',
-  FALLBACK: 'chat-model-reasoning-azure',
-  FILE_EDIT_FALLBACK: 'chat-model-reasoning-azure-mini',
+  FILE_EDIT: 'claude-sonnet-5',
+  FALLBACK: 'chat-model-reasoning-anthropic',
+  FILE_EDIT_FALLBACK: 'chat-model-reasoning-anthropic',
 } as const
 
 /**

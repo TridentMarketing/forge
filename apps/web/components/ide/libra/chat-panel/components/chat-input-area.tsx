@@ -34,6 +34,7 @@ import {
   getTextareaStyles,
 } from '../styles/input-styles'
 import type { ChatInputAreaProps } from '../types'
+import { getLoadingStatusText } from '../utils'
 import { isQuotaExceeded } from '../utils/quota-utils'
 import { AutoFixButton } from './auto-fix-button'
 import { ChatToolbar } from './chat-toolbar'
@@ -148,7 +149,7 @@ export const ChatInputArea = ({
         <div className={getLoadingIndicatorStyles()}>
           <span className={getLoadingSpanStyles()}>
             <Loader2 className='h-3.5 w-3.5 animate-spin text-accent dark:text-blue-400' />
-            <span className='font-medium'>{loadingStatus}</span>
+            <span className='font-medium'>{getLoadingStatusText(loadingStatus)}</span>
           </span>
         </div>
       )}

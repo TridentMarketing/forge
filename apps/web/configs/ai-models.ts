@@ -38,30 +38,15 @@ export type AIModel = {
   requiredPlan: PlanType
 }
 
-// Forge is Anthropic-only — every model below resolves to a direct Claude call
-// (see apps/web/ai/providers.ts). GPT 4.1 and Gemini 2.5 Pro remain listed for
-// UI familiarity but their `provider` labels are cosmetic; ANTHROPIC_API_KEY
-// is the only credential actually used.
+// Forge runs on exactly one model: Claude Sonnet 5, called directly via
+// ANTHROPIC_API_KEY (see apps/web/ai/providers.ts and ai/models.ts — legacy
+// model ids from stored preferences all resolve to the same Sonnet slot).
 export const AI_MODELS: AIModel[] = [
   {
-    id: 'claude-4-0-sonnet',
-    name: 'Claude 4.0 Sonnet',
+    id: 'claude-sonnet-5',
+    name: 'Claude Sonnet 5',
     icon: '/anthropic.svg',
     provider: 'anthropic',
-    requiredPlan: PLAN_TYPES.FREE,
-  },
-  {
-    id: 'gpt-4-1',
-    name: 'GPT 4.1',
-    icon: '/openai.svg',
-    provider: 'openai',
-    requiredPlan: PLAN_TYPES.FREE,
-  },
-  {
-    id: 'gemini-2-5-pro',
-    name: 'Gemini 2.5 Pro',
-    icon: '/google.svg',
-    provider: 'google',
     requiredPlan: PLAN_TYPES.FREE,
   },
 ]
@@ -69,8 +54,8 @@ export const AI_MODELS: AIModel[] = [
 export const getDefaultModel = (): AIModel => {
   return (
     AI_MODELS[0] ?? {
-      id: 'claude-4-0-sonnet',
-      name: 'Claude 4.0 Sonnet',
+      id: 'claude-sonnet-5',
+      name: 'Claude Sonnet 5',
       icon: '/anthropic.svg',
       provider: 'anthropic',
       requiredPlan: PLAN_TYPES.FREE,
