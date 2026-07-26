@@ -18,90 +18,25 @@
  *
  */
 
-import { env } from '@/env.mjs'
 import { anthropic } from '@ai-sdk/anthropic'
-import { createAzure } from '@ai-sdk/azure'
 import { xai } from '@ai-sdk/xai'
-import { createOpenRouter, openrouter } from '@openrouter/ai-sdk-provider'
 import { customProvider } from 'ai'
-import { createOpenAI } from '@ai-sdk/openai'
 
 /**
- * Define the configuration type, ensuring the baseURL type is correct.
- */
-type AzureConfig = {
-  resourceName: string
-  apiKey: string
-  apiVersion: string
-  baseURL?: string // Set as optional property
-}
-
-/**
- * Decide configuration options based on whether AZURE_BASE_URL exists.
- */
-const azureConfig: AzureConfig = {
-  resourceName: env.AZURE_RESOURCE_NAME || '',
-  apiKey: env.AZURE_API_KEY || '',
-  apiVersion: 'preview',
-}
-
-/**
- * Only add custom baseURL if AZURE_BASE_URL exists.
- */
-if (env.AZURE_BASE_URL) {
-  // Fix URL concatenation, ensure no line breaks and correct path structure
-  const baseUrl = env.AZURE_BASE_URL.endsWith('/') ? env.AZURE_BASE_URL : `${env.AZURE_BASE_URL}/`
-  const accountId = env.CLOUDFLARE_ACCOUNT_ID
-  const gatewayName = env.CLOUDFLARE_AIGATEWAY_NAME
-  const resourceName = env.AZURE_RESOURCE_NAME
-
-  // Construct the complete baseURL for AI SDK v5, ensuring correct path separators
-  // AI SDK v5 expects baseURL without /v1 suffix, it will add /v1{path} automatically
-  azureConfig.baseURL = `${baseUrl}${accountId}/${gatewayName}/azure-openai/${resourceName}/openai`
-} else {
-}
-
-const azure = createAzure(azureConfig)
-
-/**
- * OpenRouter configuration for Claude and Gemini models
- */
-const openrouterConfig = {
-  apiKey: env.OPENROUTER_API_KEY || '',
-  headers: {
-    'HTTP-Referer': 'https://libra.dev',
-    'X-Title': 'Libra AI',
-  },
-}
-
-const openrouterProvider = createOpenRouter(openrouterConfig)
-
-/**
- * Databricks Claude configuration using OpenAI-compatible endpoint
- */
-const databricksClaude = createOpenAI({
-  baseURL: env.DATABRICKS_BASE_URL,
-  apiKey: env.DATABRICKS_TOKEN,
-})
-
-/**
- * Provider separation architecture:
- * - Azure OpenAI: All OpenAI models (gpt-4, etc.)
- * - OpenRouter: Claude and Gemini models
- * - Databricks: Claude models via OpenAI-compatible endpoint
- * - XAI: Grok models (kept for compatibility)
+ * Forge is Anthropic-only: every chat model slot calls Claude directly via
+ * ANTHROPIC_API_KEY, rather than routing through Azure OpenAI or OpenRouter
+ * (neither of which have credentials configured for this deployment). Model
+ * IDs use the alias form (e.g. 'claude-sonnet-5') rather than dated snapshots.
  */
 export const myProvider = customProvider({
   languageModels: {
-
-    // Azure OpenAI models
-    'chat-model-reasoning-azure': azure(env.AZURE_DEPLOYMENT_NAME || 'o4-mini'),
-    'chat-model-reasoning-azure-mini': azure('gpt-4.1-mini'),
-    'chat-model-reasoning-azure-nano': azure('gpt-4.1-nano'),
-    // Databricks Claude models
-    'chat-model-databricks-claude': databricksClaude('databricks-claude-3-7-sonnet'),
-    'chat-model-reasoning-anthropic': openrouterProvider('anthropic/claude-sonnet-4'),
-    'chat-model-reasoning-google': openrouterProvider('google/gemini-2.5-pro-preview'),
+    // All model slots resolve to direct Anthropic calls for Forge.
+    'chat-model-reasoning-azure': anthropic('claude-sonnet-5'),
+    'chat-model-reasoning-azure-mini': anthropic('claude-3-5-haiku-latest'),
+    'chat-model-reasoning-azure-nano': anthropic('claude-3-5-haiku-latest'),
+    'chat-model-databricks-claude': anthropic('claude-sonnet-5'),
+    'chat-model-reasoning-anthropic': anthropic('claude-sonnet-5'),
+    'chat-model-reasoning-google': anthropic('claude-sonnet-5'),
 
     // XAI models (kept for compatibility)
     'chat-model-reasoning-xai': xai('grok-3-fast-beta'),
