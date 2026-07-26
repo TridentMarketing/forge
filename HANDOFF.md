@@ -58,53 +58,40 @@ Or simpler — in `packages/api/src/utils/container.ts`, find where `DaytonaSand
 
 The email package still requires Resend even though we're not using email OTP. Find `packages/email/env.mjs` and make `RESEND_API_KEY` and `RESEND_FROM` optional (`.optional()` in the zod schema).
 
-### 3. Set up GitHub Actions CI/CD
+### 3. GitHub Actions — use the existing workflow
 
-Create `.github/workflows/deploy.yml`:
-
-```yaml
-name: Deploy to Cloudflare Workers
-
-on:
-  push:
-    branches: [main]
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
-      - run: bun install
-      - run: cd apps/web && bun run build
-        env:
-          DATABASE_ID: ${{ secrets.DATABASE_ID }}
-          POSTGRES_URL: dummy
-          TURNSTILE_SECRET_KEY: dummy
-          RESEND_API_KEY: dummy
-          RESEND_FROM: dummy@dummy.com
-          NEXT_PUBLIC_APP_URL: https://forge.tmidev.net
-          NEXT_PUBLIC_CDN_URL: https://cdn.forge.tmidev.net
-          NEXT_PUBLIC_DEPLOY_URL: https://deploy.forge.tmidev.net
-          NEXT_PUBLIC_DISPATCHER_URL: https://dispatcher.forge.tmidev.net
-          NEXT_PUBLIC_SANDBOX_DEFAULT_PROVIDER: e2b
-          NEXT_PUBLIC_SANDBOX_BUILDER_DEFAULT_PROVIDER: e2b
-      - run: cd apps/web && npx wrangler deploy
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-```
+**Do NOT create a new workflow.** The repo already has `.github/workflows/web.yml` (inherited from upstream, already patched for Forge — runner, cache actions, and deploy URL all fixed). It triggers on push to `main` automatically.
 
 ### 4. Set GitHub repo secrets
 
-Go to: github.com/TridentMarketing/forge/settings/secrets/actions
+Go to: **github.com/TridentMarketing/forge/settings/secrets/actions**
 
-Add these secrets:
-- `CLOUDFLARE_API_TOKEN` = value from `~/.hermes/.env`
-- `CLOUDFLARE_ACCOUNT_ID` = `65eeb90f2dc01a62a085952a430a3dbe`
-- `DATABASE_ID` = `5ee77756-eb54-4831-bb6d-bc51da4d3850`
+Add these secrets (the workflow reads all of them via `secrets.*`):
+
+| Secret | Value |
+|---|---|
+| `CLOUDFLARE_API_TOKEN` | from `~/.hermes/.env` |
+| `CLOUDFLARE_ACCOUNT_ID` | `65eeb90f2dc01a62a085952a430a3dbe` |
+| `DATABASE_ID` | `5ee77756-eb54-4831-bb6d-bc51da4d3850` |
+| `KV_NAMESPACE_ID` | `a8adb6270eea47ab95d4df7b283d41fd` (forge-sessions) |
+| `NEXT_PUBLIC_APP_URL` | `https://forge.tmidev.net` |
+| `NEXT_PUBLIC_CDN_URL` | `https://cdn.forge.tmidev.net` |
+| `NEXT_PUBLIC_DEPLOY_URL` | `https://deploy.forge.tmidev.net` |
+| `NEXT_PUBLIC_DISPATCHER_URL` | `https://dispatcher.forge.tmidev.net` |
+| `NEXT_PUBLIC_SANDBOX_DEFAULT_PROVIDER` | `e2b` |
+| `NEXT_PUBLIC_SANDBOX_BUILDER_DEFAULT_PROVIDER` | `e2b` |
+| `POSTGRES_URL` | `dummy` (not used at runtime, required by build) |
+| `TURNSTILE_SECRET_KEY` | `dummy` (captcha disabled for internal tool) |
+| `RESEND_API_KEY` | `dummy` (no email OTP) |
+| `RESEND_FROM` | `noreply@tmidev.net` |
+| `BETTER_AUTH_SECRET` | from `~/.hermes/.env` as `FORGE_AUTH_SECRET` |
+| `BETTER_GITHUB_CLIENT_ID` | `Ov23liTaaMLQLc6o7OaZ` |
+| `BETTER_GITHUB_CLIENT_SECRET` | from `~/.hermes/.env` |
+| `ANTHROPIC_API_KEY` | from `~/.hermes/.env` |
+| `E2B_API_KEY` | from `~/.hermes/.env` |
+| `LIBRA_GITHUB_TOKEN` | a GitHub PAT with `repo` + `deployments` scope (for the deployment status step) |
+
+Secrets you can leave **blank/absent** (workflow handles missing gracefully): `POSTHOG_*`, `AZURE_*`, `OPENROUTER_*`, `STRIPE_*`, `DAYTONA_*`, `CLOUDFLARE_ZONE_ID`, `CLOUDFLARE_SAAS_ZONE_ID`, `HYPERDRIVE_ID`, `GITHUB_APP_*`
 
 ### 5. Set Cloudflare Worker secrets (after first deploy)
 
