@@ -23,6 +23,6 @@ import { env } from '../env.mjs'
 
 export const captchaPlugin = captcha({
   provider: 'cloudflare-turnstile', // or google-recaptcha, hcaptcha
-  secretKey: env.TURNSTILE_SECRET_KEY,
+  secretKey: env.TURNSTILE_SECRET_KEY || '',
   endpoints: ['/email-otp/send-verification-otp'],
 })

@@ -34,11 +34,23 @@ import { z } from 'zod/v4'
 import { organizationProcedure, protectedProcedure, publicProcedure } from '../trpc'
 import { DEFAULT_FREE_LIMITS, getURL, mapToPlans } from '../utils/stripe-utils'
 
-// Initialize Stripe client
-const stripe = new Stripe(env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2025-08-27.basil',
-  httpClient: Stripe.createFetchHttpClient(),
-})
+// Lazily initialize the Stripe client — billing is disabled by default (Forge has no
+// Stripe key configured), so avoid constructing the SDK at module load time, which
+// throws when STRIPE_SECRET_KEY is empty and breaks the Next.js build.
+let stripeClient: Stripe | null = null
+
+function getStripe(): Stripe {
+  if (!env.STRIPE_SECRET_KEY) {
+    throw new Error('Billing is not configured (STRIPE_SECRET_KEY is not set)')
+  }
+  if (!stripeClient) {
+    stripeClient = new Stripe(env.STRIPE_SECRET_KEY, {
+      apiVersion: '2025-08-27.basil',
+      httpClient: Stripe.createFetchHttpClient(),
+    })
+  }
+  return stripeClient
+}
 
 export const stripeRouter = {
   getUserPlans: publicProcedure.query(async ({ ctx }) => {
@@ -209,7 +221,7 @@ export const stripeRouter = {
     }
 
     try {
-      const portalSession = await stripe.billingPortal.sessions.create({
+      const portalSession = await getStripe().billingPortal.sessions.create({
         customer: userData.stripeCustomerId,
         return_url: getURL('dashboard'),
       })
