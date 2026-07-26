@@ -39,7 +39,7 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'media.libra.dev',
+                hostname: 'cdn.forge.tmidev.net',
                 pathname: '/**',
             },
         ],

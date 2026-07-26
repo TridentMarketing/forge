@@ -20,25 +20,21 @@
 
 'use client'
 
-import LoginForm from './LoginForm'
-import FeatureShowcase from './FeatureShowcase'
 import { ThemeSwitcher } from '@/components/common/theme-switcher'
+import LoginForm from './LoginForm'
 
 /**
- * Authentication form component
- * Provides login/signup functionality with feature showcase
+ * Authentication page — single centered sign-in card
  */
 export default function AuthForm() {
   return (
-    <div className='w-full min-h-screen grid grid-cols-1 lg:grid-cols-2 relative'>
+    <div className='w-full min-h-screen relative'>
       {/* Theme switcher positioned in top-right corner */}
       <div className='absolute top-3 right-3 sm:top-4 sm:right-4 z-50'>
         <ThemeSwitcher />
       </div>
-      
-      <LoginForm />
 
-      <FeatureShowcase />
+      <LoginForm />
     </div>
   )
 }

@@ -18,31 +18,30 @@
  *
  */
 
-import Scroller from "@/components/scroller";
-import { RootProvider } from "fumadocs-ui/provider";
-import type { ReactNode } from "react";
-import { Suspense } from "react";
-import { locales } from "@/lib/i18n";
-import { zhTranslations } from "@/lib/translations";
-import { notFound } from "next/navigation";
+import { RootProvider } from 'fumadocs-ui/provider'
+import { notFound } from 'next/navigation'
+import type { ReactNode } from 'react'
+import { Suspense } from 'react'
+import { locales } from '@/lib/i18n'
+import { zhTranslations } from '@/lib/translations'
 
 const translations = {
   zh: zhTranslations,
-};
+}
 
 export default async function LanguageLayout({
   params,
   children,
 }: {
-  params: Promise<{ lang: string }>;
-  children: ReactNode;
+  params: Promise<{ lang: string }>
+  children: ReactNode
 }) {
-  const { lang } = await params;
+  const { lang } = await params
 
   // Validate that the language is supported
-  const isValidLang = locales.some(locale => locale.locale === lang);
+  const isValidLang = locales.some((locale) => locale.locale === lang)
   if (!isValidLang) {
-    notFound();
+    notFound()
   }
 
   return (
@@ -55,9 +54,7 @@ export default async function LanguageLayout({
       theme={{}}
     >
       {children}
-      <Suspense fallback={null}>
-        <Scroller />
-      </Suspense>
+      <Suspense fallback={null}></Suspense>
     </RootProvider>
-  );
+  )
 }

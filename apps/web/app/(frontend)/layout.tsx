@@ -18,40 +18,22 @@
  *
  */
 
-import {headers} from 'next/headers'
 import type React from 'react'
-import {cache, Suspense} from 'react'
-import {
-  assertIsLocale,
-  baseLocale,
-  getLocale,
-  type Locale,
-  overwriteGetLocale,
-  overwriteGetUrlOrigin,
-} from '../../paraglide/runtime'
-import './fonts'
+import { Suspense } from 'react'
+import { baseLocale, overwriteGetLocale } from '../../paraglide/runtime'
+import { sans, serif } from './fonts'
 import '@libra/ui/globals.css'
+import { Toaster } from '@libra/ui/components/sonner'
+import type { Metadata } from 'next/types'
+import { ThemeProvider } from 'next-themes'
 import ClientProviders from '@/components/client-providers'
-import {GeneralAnalyticsCollector} from '@/components/general-analytics-collector'
-import {GoogleAnalytics} from '@/components/google-analytics'
-import {TRPCReactProvider} from '@/trpc/client'
-import {Toaster} from '@libra/ui/components/sonner'
-import {ThemeProvider} from 'next-themes'
-import Head from 'next/head'
-import type {Metadata} from 'next/types'
-import {Body} from './layout.client'
-import {siteConfig} from '@/configs/site'
+import { GeneralAnalyticsCollector } from '@/components/general-analytics-collector'
+import { siteConfig } from '@/configs/site'
+import { TRPCReactProvider } from '@/trpc/client'
+import { Body } from './layout.client'
 
-const ssrLocale = cache(() => ({ locale: baseLocale, origin: 'http://localhost' }))
-
-// overwrite the getLocale function to use the locale from the request
-overwriteGetLocale(() => {
-  const store = ssrLocale()
-  const locale = store.locale
-  // Ensure we always return a valid locale, fallback to baseLocale
-  return assertIsLocale(locale || baseLocale)
-})
-overwriteGetUrlOrigin(() => ssrLocale().origin)
+// Forge is English-only — pin the locale
+overwriteGetLocale(() => baseLocale)
 
 export const metadata: Metadata = {
   title: {
@@ -60,36 +42,9 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL(siteConfig.getStartedUrl),
   description: siteConfig.description,
-  keywords: [
-    "AI development platform",
-    "no-code development",
-    "low-code platform",
-    "AI code generation",
-    "natural language programming",
-    "full-stack development",
-    "web application builder",
-    "AI-powered coding",
-    "cloud IDE",
-    "real-time collaboration",
-    "Next.js",
-    "React",
-    "TypeScript",
-    "serverless deployment",
-    "Cloudflare Workers",
-    "SaaS platform",
-    "developer tools",
-    "code editor",
-    "project management",
-    "team collaboration",
-    "AI assistant",
-    "automated deployment",
-    "modern web development",
-    "enterprise development",
-    "subscription management",
-  ],
   openGraph: {
-    type: "website",
-    locale: "en_US",
+    type: 'website',
+    locale: 'en_US',
     url: siteConfig.getStartedUrl,
     title: siteConfig.name,
     description: siteConfig.description,
@@ -102,50 +57,28 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: 'summary_large_image',
     title: siteConfig.name,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
-    creator: "@nextify2024",
   },
   icons: {
-    icon: "/favicon.ico"
+    icon: '/favicon.ico',
   },
-};
+}
 
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  const headersList = await headers()
-  const localeFromHeader = headersList.get('x-paraglide-locale') as Locale
-  const requestUrl = headersList.get('x-paraglide-request-url') || 'http://localhost'
-
-  // Ensure we have a valid locale, fallback to baseLocale if needed
-  let validLocale = baseLocale
-  try {
-    if (localeFromHeader) {
-      validLocale = assertIsLocale(localeFromHeader)
-    }
-  } catch {
-    // If locale validation fails, use baseLocale
-    validLocale = baseLocale
-  }
-
-  ssrLocale().locale = validLocale
-  ssrLocale().origin = new URL(requestUrl).origin
-  const locale = getLocale()
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang={locale} suppressHydrationWarning>
-      <Head>
-        <GoogleAnalytics />
-      </Head>
+    <html
+      lang={baseLocale}
+      className={`${sans.variable} ${serif.variable}`}
+      suppressHydrationWarning
+    >
       <Body>
         <ClientProviders>
           <ThemeProvider
             attribute='class'
-            defaultTheme='dark'
+            defaultTheme='light'
             enableSystem
             disableTransitionOnChange
           >

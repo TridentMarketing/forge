@@ -51,7 +51,7 @@ export interface TreeNode {
   content?: string
 }
 
-// Libra component properties
+// IDE component properties
 export interface LibraProps {
   codePreviewActive: boolean
   initialMessages: HistoryType

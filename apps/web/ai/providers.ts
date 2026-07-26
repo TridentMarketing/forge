@@ -32,8 +32,8 @@ export const myProvider = customProvider({
   languageModels: {
     // All model slots resolve to direct Anthropic calls for Forge.
     'chat-model-reasoning-azure': anthropic('claude-sonnet-5'),
-    'chat-model-reasoning-azure-mini': anthropic('claude-3-5-haiku-latest'),
-    'chat-model-reasoning-azure-nano': anthropic('claude-3-5-haiku-latest'),
+    'chat-model-reasoning-azure-mini': anthropic('claude-sonnet-5'),
+    'chat-model-reasoning-azure-nano': anthropic('claude-sonnet-5'),
     'chat-model-databricks-claude': anthropic('claude-sonnet-5'),
     'chat-model-reasoning-anthropic': anthropic('claude-sonnet-5'),
     'chat-model-reasoning-google': anthropic('claude-sonnet-5'),

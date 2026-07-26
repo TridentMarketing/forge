@@ -37,9 +37,9 @@
   --deployment-color-neutral-border: hsl(var(--border) / 0.5);
 
   /* Upgrade focus colors */
-  --deployment-color-upgrade: hsl(var(--primary));
-  --deployment-color-upgrade-bg: hsl(var(--primary) / 0.1);
-  --deployment-color-upgrade-border: hsl(var(--primary) / 0.2);
+  --deployment-color-upgrade: var(--primary);
+  --deployment-color-upgrade-bg: color-mix(in oklab, var(--primary) 10%, transparent);
+  --deployment-color-upgrade-border: color-mix(in oklab, var(--primary) 20%, transparent);
 
   /* Legacy status colors (kept for compatibility) */
   --deployment-color-success: hsl(142, 76%, 36%);
@@ -60,8 +60,8 @@
 
   /* Progress colors */
   --deployment-progress-bg: hsl(var(--muted));
-  --deployment-progress-fill: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--brand)));
-  --deployment-progress-text: hsl(var(--primary));
+  --deployment-progress-fill: linear-gradient(90deg, var(--primary), var(--brand));
+  --deployment-progress-text: var(--primary);
 
   /* ===== TYPOGRAPHY TOKENS ===== */
   --deployment-font-size-xs: 0.75rem; /* 12px */
@@ -109,8 +109,8 @@
   --deployment-color-neutral-border: hsl(var(--border) / 0.3);
 
   /* Upgrade focus colors for dark mode */
-  --deployment-color-upgrade-bg: hsl(var(--primary) / 0.15);
-  --deployment-color-upgrade-border: hsl(var(--primary) / 0.25);
+  --deployment-color-upgrade-bg: color-mix(in oklab, var(--primary) 15%, transparent);
+  --deployment-color-upgrade-border: color-mix(in oklab, var(--primary) 25%, transparent);
 
   /* Legacy status colors (kept for compatibility) */
   --deployment-color-success-bg: hsl(142, 76%, 6%);

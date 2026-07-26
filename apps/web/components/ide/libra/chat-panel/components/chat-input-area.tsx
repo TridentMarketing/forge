@@ -34,11 +34,11 @@ import {
   getTextareaStyles,
 } from '../styles/input-styles'
 import type { ChatInputAreaProps } from '../types'
+import { getLoadingStatusText } from '../utils'
 import { isQuotaExceeded } from '../utils/quota-utils'
 import { AutoFixButton } from './auto-fix-button'
 import { ChatToolbar } from './chat-toolbar'
 import { FileUploadPreview } from './file-upload-preview'
-import { UpgradeButton } from './upgrade-button'
 
 /**
  * Chat input area component - handles user message input and interaction controls
@@ -149,7 +149,7 @@ export const ChatInputArea = ({
         <div className={getLoadingIndicatorStyles()}>
           <span className={getLoadingSpanStyles()}>
             <Loader2 className='h-3.5 w-3.5 animate-spin text-accent dark:text-blue-400' />
-            <span className='font-medium'>{loadingStatus}</span>
+            <span className='font-medium'>{getLoadingStatusText(loadingStatus)}</span>
           </span>
         </div>
       )}
@@ -172,13 +172,6 @@ export const ChatInputArea = ({
         quotaExceeded={quotaExceeded}
       />
 
-      {/* Upgrade button when quota is exceeded */}
-      {quotaExceeded && (
-        <div className='mb-3 animate-in fade-in-50 slide-in-from-top-2 duration-300'>
-          <UpgradeButton />
-        </div>
-      )}
-
       {/* Main input container */}
       <div className={getInputContainerStyles()}>
         <form onSubmit={handleMessageSend} className='flex flex-col overflow-hidden w-full'>
@@ -191,7 +184,11 @@ export const ChatInputArea = ({
               onKeyDown={handleKeyDown}
               onFocus={handleFormFocus}
               onBlur={handleFormBlur}
-              placeholder={quotaExceeded ? m['chatPanel.input.placeholderQuotaExceeded']() : m['chatPanel.input.placeholder']()}
+              placeholder={
+                quotaExceeded
+                  ? m['chatPanel.input.placeholderQuotaExceeded']()
+                  : m['chatPanel.input.placeholder']()
+              }
               maxLength={maxMessageLength}
               rows={1}
               disabled={isSending || quotaExceeded}
@@ -212,7 +209,10 @@ export const ChatInputArea = ({
                       : 'dark:text-neutral-400 text-gray-500 dark:bg-neutral-800/50 bg-gray-50 dark:border-neutral-700 border-gray-200'
                 )}
               >
-                {m['chatPanel.input.characterCount']({ current: messageLength, max: maxMessageLength })}
+                {m['chatPanel.input.characterCount']({
+                  current: messageLength,
+                  max: maxMessageLength,
+                })}
               </div>
             )}
           </div>

@@ -414,7 +414,7 @@ export default function ChatPanel({
             onDeleteElement={deleteElement}
             onClose={closeElementEditor}
             onSubmitToAI={async (message: string, selectedItems: unknown[]) => {
-              // Force gpt-4-1 model for direct modifications and send message
+              // Direct modifications use the file-edit path (Claude Sonnet 5, like everything else)
               await sendMessageToAI(message, selectedItems, undefined, undefined, true)
             }}
           />

@@ -1,7 +1,7 @@
 const Index = () => {
   return (
     <div className='min-h-screen bg-white'>
-      <div className='text-2xl font-bold'>Libra AI</div>
+      <div className='text-2xl font-bold'>Forge</div>
       {/* Navbar Section */}
 
       {/* Hero Section */}

@@ -18,10 +18,10 @@
  *
  */
 
-import { Calendar, CheckCircle2, Sparkles, UserRound, Utensils } from 'lucide-react'
+import { Calendar, CheckCircle2, Sparkles, UserRound, Wrench } from 'lucide-react'
 import { Fragment, type MutableRefObject, type RefObject } from 'react'
-import type { ExampleCategory } from './types'
 import * as m from '@/paraglide/messages'
+import type { ExampleCategory } from './types'
 
 interface ExamplesPanelProps {
   examplesRef: RefObject<HTMLDivElement> | MutableRefObject<HTMLDivElement | null>
@@ -35,56 +35,56 @@ interface ExamplesPanelProps {
  */
 const getExampleCategories = (): ExampleCategory[] => [
   {
-    id: 'productivity',
-    name: m["hero.examples.productivity"](),
+    id: 'guest',
+    name: m['hero.examples.guest'](),
     icon: <Calendar className='size-4' />,
     color: 'blue',
     examples: [
       {
-        title: m["hero.examples.task_manager"](),
-        description: m["hero.examples.task_manager_desc"](),
-        preview: m["hero.examples.task_manager_preview"](),
+        title: m['hero.examples.booking_widget'](),
+        description: m['hero.examples.booking_widget_desc'](),
+        preview: m['hero.examples.booking_widget_preview'](),
       },
       {
-        title: m["hero.examples.note_taking"](),
-        description: m["hero.examples.note_taking_desc"](),
-        preview: m["hero.examples.note_taking_preview"](),
+        title: m['hero.examples.activity_schedule'](),
+        description: m['hero.examples.activity_schedule_desc'](),
+        preview: m['hero.examples.activity_schedule_preview'](),
       },
     ],
   },
   {
-    id: 'social',
-    name: m["hero.examples.social"](),
-    icon: <UserRound className='size-4' />,
+    id: 'operations',
+    name: m['hero.examples.operations'](),
+    icon: <Wrench className='size-4' />,
     color: 'purple',
     examples: [
       {
-        title: m["hero.examples.interest_community"](),
-        description: m["hero.examples.interest_community_desc"](),
-        preview: m["hero.examples.interest_community_preview"](),
+        title: m['hero.examples.occupancy_dashboard'](),
+        description: m['hero.examples.occupancy_dashboard_desc'](),
+        preview: m['hero.examples.occupancy_dashboard_preview'](),
       },
       {
-        title: m["hero.examples.local_events"](),
-        description: m["hero.examples.local_events_desc"](),
-        preview: m["hero.examples.local_events_preview"](),
+        title: m['hero.examples.maintenance_tracker'](),
+        description: m['hero.examples.maintenance_tracker_desc'](),
+        preview: m['hero.examples.maintenance_tracker_preview'](),
       },
     ],
   },
   {
-    id: 'health',
-    name: m["hero.examples.health"](),
-    icon: <Utensils className='size-4' />,
+    id: 'members',
+    name: m['hero.examples.members'](),
+    icon: <UserRound className='size-4' />,
     color: 'green',
     examples: [
       {
-        title: m["hero.examples.diet_tracker"](),
-        description: m["hero.examples.diet_tracker_desc"](),
-        preview: m["hero.examples.diet_tracker_preview"](),
+        title: m['hero.examples.member_portal'](),
+        description: m['hero.examples.member_portal_desc'](),
+        preview: m['hero.examples.member_portal_preview'](),
       },
       {
-        title: m["hero.examples.fitness_plan"](),
-        description: m["hero.examples.fitness_plan_desc"](),
-        preview: m["hero.examples.fitness_plan_preview"](),
+        title: m['hero.examples.referral_form'](),
+        description: m['hero.examples.referral_form_desc'](),
+        preview: m['hero.examples.referral_form_preview'](),
       },
     ],
   },
@@ -119,7 +119,7 @@ export const ExamplesPanel = ({
       className='absolute mt-1 w-full bg-[var(--background-landing)]/95 backdrop-blur-sm ring-1 ring-border/30 rounded-lg shadow-lg overflow-hidden transition-all animate-in fade-in-0 zoom-in-95 duration-200'
       style={{
         position: 'absolute',
-        zIndex: 9999  // Set the highest z-index using inline style
+        zIndex: 9999, // Set the highest z-index using inline style
       }}
     >
       {/* Title bar */}
@@ -139,8 +139,8 @@ export const ExamplesPanel = ({
               type='button'
               key={category.id}
               className={`text-xs px-2.5 py-1 rounded-md flex items-center gap-1 whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-                selectedCategory === category.id 
-                  ? 'bg-primary text-primary-foreground ring-1 ring-primary/50' 
+                selectedCategory === category.id
+                  ? 'bg-primary text-primary-foreground ring-1 ring-primary/50'
                   : 'hover:bg-muted ring-1 ring-border/20 hover:ring-border/40'
               }`}
               onClick={() => setSelectedCategory(category.id)}
@@ -167,9 +167,7 @@ export const ExamplesPanel = ({
                 >
                   <div className='flex items-center justify-between gap-2 mb-1'>
                     <span className='font-medium text-sm'>{example.title}</span>
-                    <span
-                      className={`inline-flex items-center justify-center size-5 rounded-full bg-${category.color}-500/10 text-${category.color}-500 ring-1 ring-${category.color}-500/20`}
-                    >
+                    <span className='inline-flex items-center justify-center size-5 rounded-full bg-primary/10 text-primary ring-1 ring-primary/20'>
                       {category.icon}
                     </span>
                   </div>

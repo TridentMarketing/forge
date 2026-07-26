@@ -18,22 +18,18 @@
  *
  */
 
-import type { I18nConfig } from 'fumadocs-core/i18n';
+import type { I18nConfig } from 'fumadocs-core/i18n'
 
 export const i18n: I18nConfig = {
   defaultLanguage: 'en',
-  languages: ['en', 'zh'],
-};
+  languages: ['en'],
+}
 
 export const locales = [
   {
     name: 'English',
     locale: 'en',
   },
-  {
-    name: '中文',
-    locale: 'zh',
-  },
-] as const;
+] as const
 
-export type Locale = typeof i18n.languages[number];
+export type Locale = (typeof i18n.languages)[number]

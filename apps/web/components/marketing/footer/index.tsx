@@ -19,12 +19,10 @@
  */
 
 import { cn } from '@libra/ui/lib/utils'
-import type { ReactNode } from 'react'
 import { Logo } from '@/components/common/logo/LogoImage'
-import { Footer, FooterBottom, FooterColumn, FooterContent } from '@/components/ui/footer'
+import { Footer, FooterBottom } from '@/components/ui/footer'
 import { siteConfig } from '@/configs/site'
 import * as m from '@/paraglide/messages'
-import { TextGif } from '../../ui/text-gif'
 
 interface FooterLink {
   text: string
@@ -32,43 +30,16 @@ interface FooterLink {
   id: string
 }
 
-interface FooterColumnProps {
-  title: string
-  links: FooterLink[]
-  id: string
-}
-
 interface FooterProps {
-  logo?: ReactNode
   name?: string
-  columns?: FooterColumnProps[]
   copyright?: string
   policies?: FooterLink[]
   className?: string
 }
 
 export default function FooterSection({
-  logo = <Logo />,
-  name = 'Libra AI',
-  columns = [
-    {
-      id: 'product',
-      title: m['footer.product'](),
-      links: [
-        { id: 'changelog', text: m['footer.changelog'](), href: siteConfig.url },
-        { id: 'documentation', text: m['footer.documentation'](), href: siteConfig.url },
-      ],
-    },
-    {
-      id: 'contact',
-      title: m['footer.contact'](),
-      links: [
-        { id: 'github', text: m['footer.github'](), href: siteConfig.links.github },
-        { id: 'email', text: m['footer.contact'](), href: siteConfig.links.email },
-      ],
-    },
-  ],
-  copyright = m['footer.copyright_nextify'](),
+  name = 'Forge',
+  copyright = m['footer.copyright'](),
   policies = [
     { id: 'privacy', text: m['footer.privacy'](), href: '/privacy' },
     { id: 'terms', text: m['footer.terms'](), href: '/terms' },
@@ -79,34 +50,15 @@ export default function FooterSection({
     <footer className={cn('w-full px-4 sm:px-6 lg:px-8', className)}>
       <div className='max-w-container mx-auto'>
         <Footer>
-          <FooterContent>
-            <FooterColumn className='col-span-12 sm:col-span-6 md:col-span-3 lg:col-span-1'>
-              <div className='flex items-center gap-1'>
-                {logo}
-                <h3 className='text-lg sm:text-xl font-bold'>
-                  <TextGif text={name} weight='bold' />
-                </h3>
-              </div>
-            </FooterColumn>
-            {columns.map((column) => (
-              <FooterColumn key={column.id}>
-                <h3 className='text-sm sm:text-md pt-1 font-semibold'>{column.title}</h3>
-                {column.links.map((link) => (
-                  <a
-                    key={link.id}
-                    href={link.href}
-                    className='text-muted-foreground text-sm'
-                    data-attr={link.id === 'github' || link.href?.includes('github.com') ? 'github' : undefined}
-                  >
-                    {link.text}
-                  </a>
-                ))}
-              </FooterColumn>
-            ))}
-          </FooterContent>
           <FooterBottom>
-            <div>{copyright}</div>
+            <div className='flex items-center gap-2'>
+              <Logo />
+              <span className='font-serif font-semibold'>{name}</span>
+              <span className='text-muted-foreground'>{copyright}</span>
+            </div>
             <div className='flex flex-wrap items-center gap-3 sm:gap-4'>
+              <a href={siteConfig.links.github}>GitHub</a>
+              <a href={siteConfig.links.email}>{m['footer.contact']()}</a>
               {policies.map((policy) => (
                 <a key={policy.id} href={policy.href}>
                   {policy.text}

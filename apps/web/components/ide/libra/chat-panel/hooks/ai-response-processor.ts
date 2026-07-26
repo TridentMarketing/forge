@@ -22,10 +22,10 @@
 
 import type { FileType, HistoryType } from '@libra/common'
 import { tryCatch } from '@libra/common'
-import type { Message } from './types'
+import { toast } from 'sonner'
 import type { DetailedLoadingStatus } from '../types'
 import { playNotificationSound } from '../utils'
-import { toast } from 'sonner'
+import type { Message } from './types'
 
 /**
  * AI response processor
@@ -52,7 +52,7 @@ export const createResponseProcessor = (
   updateHistoryMutation: any,
   abortSignalRef: React.MutableRefObject<AbortController | null>,
   progressRefs: {
-    progressRef: React.MutableRefObject<Record<string, any>>,
+    progressRef: React.MutableRefObject<Record<string, any>>
     stageTimersRef: React.MutableRefObject<Record<string, NodeJS.Timeout>>
   },
   onFileContentUpdate?: (path: string, content: string) => void,
@@ -99,8 +99,8 @@ export const createResponseProcessor = (
       }
 
       updateLoadingStage(planId, 'complete', 100)
-      playNotificationSound();
-      setIsLoading(false);
+      playNotificationSound()
+      setIsLoading(false)
 
       if (fileUpdates.length > 0) {
         const currentMessages = await new Promise<HistoryType>((resolve) => {
@@ -163,16 +163,9 @@ export const createResponseProcessor = (
         toastMessage = 'AI quota exhausted'
         chatMessage = 'AI quota exhausted'
 
-        // Show toast with upgrade option for quota exceeded
         toast.error(toastMessage, {
-          description: 'You have reached the AI usage limit. Please upgrade your plan or wait for the next billing cycle.',
-          action: {
-            label: 'Upgrade Plan',
-            onClick: () => {
-              // Navigate to pricing page or billing portal
-              window.open('/#price', '_blank')
-            }
-          },
+          description:
+            'The AI usage limit for this workspace has been reached. Contact tech@travelresorts.com if you need it raised.',
           duration: 8000,
         })
       } else if ((error as any)?.type === 'UNAUTHORIZED') {
@@ -206,6 +199,6 @@ export const createResponseProcessor = (
   }
 
   return {
-    processAIResponse
+    processAIResponse,
   }
-} 
+}

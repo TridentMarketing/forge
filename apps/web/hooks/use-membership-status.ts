@@ -20,10 +20,10 @@
 
 'use client'
 
-import { useTRPC } from '@/trpc/client'
 import { authClient } from '@libra/auth/auth-client'
 import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
+import { useTRPC } from '@/trpc/client'
 
 /**
  * Membership status interface (matches backend)
@@ -57,16 +57,16 @@ export interface MembershipStatus {
 export interface UseMembershipStatusReturn {
   // Membership data
   membershipStatus: MembershipStatus | null
-  
+
   // Loading states
   isLoading: boolean
   isError: boolean
   error: Error | null
-  
+
   // Convenience flags
   isPremium: boolean
   isFreePlan: boolean
-  
+
   // Feature access shortcuts
   canUseCustomDomains: boolean
   canCreateUnlimitedProjects: boolean
@@ -75,12 +75,12 @@ export interface UseMembershipStatusReturn {
   canAccessAnalytics: boolean
   canExportProjects: boolean
   canCreatePrivateProjects: boolean
-  
+
   // Usage information
   aiUsagePercentage: number
   projectUsagePercentage: number
   seatsUsagePercentage: number
-  
+
   // Actions
   handleUpgrade: () => void
   refetch: () => void
@@ -134,36 +134,43 @@ export function useMembershipStatus(): UseMembershipStatusReturn {
   const canCreatePrivateProjects = membershipStatus?.features.canCreatePrivateProjects ?? false
 
   // Usage calculations
-  const aiUsagePercentage = membershipStatus 
-    ? Math.round(((membershipStatus.usage.aiNumsLimit - membershipStatus.usage.aiNums) / membershipStatus.usage.aiNumsLimit) * 100)
+  const aiUsagePercentage = membershipStatus
+    ? Math.round(
+        ((membershipStatus.usage.aiNumsLimit - membershipStatus.usage.aiNums) /
+          membershipStatus.usage.aiNumsLimit) *
+          100
+      )
     : 0
 
   const projectUsagePercentage = membershipStatus
-    ? Math.round(((membershipStatus.usage.projectNumsLimit - membershipStatus.usage.projectNums) / membershipStatus.usage.projectNumsLimit) * 100)
+    ? Math.round(
+        ((membershipStatus.usage.projectNumsLimit - membershipStatus.usage.projectNums) /
+          membershipStatus.usage.projectNumsLimit) *
+          100
+      )
     : 0
 
   const seatsUsagePercentage = membershipStatus
     ? Math.round((membershipStatus.usage.seats / membershipStatus.usage.seatsLimit) * 100)
     : 0
 
-  // Handle upgrade action
-  const handleUpgrade = () => {
-    router.push('/#price')
-  }
+  // Forge is internal — there is no upgrade path; keep the handler as a no-op
+  // for API compatibility with existing call sites.
+  const handleUpgrade = () => {}
 
   return {
     // Membership data
     membershipStatus,
-    
+
     // Loading states
     isLoading,
     isError,
     error,
-    
+
     // Convenience flags
     isPremium,
     isFreePlan,
-    
+
     // Feature access shortcuts
     canUseCustomDomains,
     canCreateUnlimitedProjects,
@@ -172,12 +179,12 @@ export function useMembershipStatus(): UseMembershipStatusReturn {
     canAccessAnalytics,
     canExportProjects,
     canCreatePrivateProjects,
-    
+
     // Usage information
     aiUsagePercentage,
     projectUsagePercentage,
     seatsUsagePercentage,
-    
+
     // Actions
     handleUpgrade,
     refetch: membershipQuery.refetch,

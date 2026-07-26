@@ -22,127 +22,124 @@
 
 import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation'
 import Script from 'next/script'
-import { TopLoader, useTopLoader } from '@/components/ui/top-loader'
 import { type ReactNode, Suspense, useEffect } from 'react'
-import { mono } from './fonts'
+import { TopLoader, useTopLoader } from '@/components/ui/top-loader'
+import { sans } from './fonts'
 
 // Declare type for window.trpc
 declare global {
   interface Window {
     trpc?: {
-      createTRPCNext: (opts: any) => any;
-    };
+      createTRPCNext: (opts: any) => any
+    }
   }
 }
 
 // Get global TopLoader instance
-const globalLoader = { 
-  start: () => {}, 
-  done: () => {}, 
+const globalLoader = {
+  start: () => {},
+  done: () => {},
   set: (loader: { start: () => void; done: () => void }) => {
-    globalLoader.start = loader.start;
-    globalLoader.done = loader.done;
-  } 
-};
+    globalLoader.start = loader.start
+    globalLoader.done = loader.done
+  },
+}
 
 function RouterChecker() {
   const { start, done } = useTopLoader()
-  const router = useRouter();
-  
+  const router = useRouter()
+
   // Set loader methods to global object for use by other monitoring components
   useEffect(() => {
-    globalLoader.set({ start, done });
-  }, [start, done]);
+    globalLoader.set({ start, done })
+  }, [start, done])
 
   useEffect(() => {
-    const _push = router.push.bind(router);
-    const _refresh = router.refresh.bind(router);
+    const _push = router.push.bind(router)
+    const _refresh = router.refresh.bind(router)
 
     router.push = (href, options) => {
-      start();
-      _push(href, options);
-    };
+      start()
+      _push(href, options)
+    }
 
     router.refresh = () => {
-      start();
-      _refresh();
-    };
-    
+      start()
+      _refresh()
+    }
+
     // Return cleanup function to restore original methods if component unmounts
     return () => {
-      router.push = _push;
-      router.refresh = _refresh;
-    };
-  }, [router, start]);
+      router.push = _push
+      router.refresh = _refresh
+    }
+  }, [router, start])
 
   useEffect(() => {
-    done();
-  }, [done]);
+    done()
+  }, [done])
 
-  return null;
+  return null
 }
 
 // Monitor all fetch requests
 function FetchMonitor() {
   useEffect(() => {
     // Save original fetch
-    const originalFetch = window.fetch;
-    
+    const originalFetch = window.fetch
+
     // Define active requests set
-    const activeRequests = new Set<string>();
-    
+    const activeRequests = new Set<string>()
+
     // Override global fetch
-    window.fetch = function(...args) {
-      const url = args[0] instanceof Request ? args[0].url : String(args[0]);
-      const requestId = `${url}_${Date.now()}`;
-      
+    window.fetch = function (...args) {
+      const url = args[0] instanceof Request ? args[0].url : String(args[0])
+      const requestId = `${url}_${Date.now()}`
+
       // Start loading
       if (activeRequests.size === 0) {
-        globalLoader.start();
+        globalLoader.start()
       }
-      
-      activeRequests.add(requestId);
-      
+
+      activeRequests.add(requestId)
+
       // Call original fetch
-      return originalFetch.apply(this, args)
-        .then(response => {
-          activeRequests.delete(requestId);
-          
+      return originalFetch
+        .apply(this, args)
+        .then((response) => {
+          activeRequests.delete(requestId)
+
           // If no active requests, complete loading
           if (activeRequests.size === 0) {
-            globalLoader.done();
+            globalLoader.done()
           }
-          
-          return response;
+
+          return response
         })
-        .catch(error => {
-          activeRequests.delete(requestId);
-          
+        .catch((error) => {
+          activeRequests.delete(requestId)
+
           // If no active requests, complete loading
           if (activeRequests.size === 0) {
-            globalLoader.done();
+            globalLoader.done()
           }
-          
-          throw error;
-        });
-    };
-    
+
+          throw error
+        })
+    }
+
     // Cleanup function
     return () => {
-      window.fetch = originalFetch;
-    };
-  }, []);
-  
-  return null;
+      window.fetch = originalFetch
+    }
+  }, [])
+
+  return null
 }
 
-export function Body({
-  children,
-}: {
-  children: ReactNode
-}): React.ReactElement<unknown> {
+export function Body({ children }: { children: ReactNode }): React.ReactElement<unknown> {
   return (
-    <body className={`${mono.className} antialiased`}>
+    <body className={`${sans.className} antialiased`}>
       <Suspense>
         <RouterChecker />
         <FetchMonitor />

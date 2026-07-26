@@ -18,13 +18,12 @@
  *
  */
 
-"use client"
+'use client'
 
 import { Separator } from '@libra/ui/components/separator'
 import { SidebarTrigger } from '@libra/ui/components/sidebar'
-import * as m from '@/paraglide/messages'
-import { LanguageSwitcher } from '@/components/language-switcher'
 import { ThemeSwitcher } from '@/components/common/theme-switcher'
+import * as m from '@/paraglide/messages'
 
 export function SiteHeader() {
   return (
@@ -33,10 +32,11 @@ export function SiteHeader() {
         <div className='flex items-center gap-1 lg:gap-2'>
           <SidebarTrigger className='-ml-1' />
           <Separator orientation='vertical' className='mx-2 data-[orientation=vertical]:h-4' />
-          <h1 className='text-sm sm:text-base font-medium'>{m["dashboard.siteHeader.projectManagement"]()}</h1>
+          <h1 className='text-sm sm:text-base font-medium'>
+            {m['dashboard.siteHeader.projectManagement']()}
+          </h1>
         </div>
         <div className='flex items-center gap-1 sm:gap-2'>
-          <LanguageSwitcher />
           <ThemeSwitcher />
         </div>
       </div>

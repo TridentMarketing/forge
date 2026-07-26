@@ -18,158 +18,156 @@
  *
  */
 
-import {Heading} from "@/components/heading";
-import {source} from "@/loaders/source";
-import {Callout} from "fumadocs-ui/components/callout";
-import defaultMdxComponents, {createRelativeLink} from "fumadocs-ui/mdx";
-import {DocsBody, DocsDescription, DocsPage, DocsTitle} from "fumadocs-ui/page";
-import {notFound, redirect} from "next/navigation";
-import {Tabs} from "fumadocs-ui/components/tabs";
-import { existsSync } from "node:fs";
-import { join } from "node:path";
+import { existsSync } from 'node:fs'
+import { join } from 'node:path'
+import { Callout } from 'fumadocs-ui/components/callout'
+import { Tabs } from 'fumadocs-ui/components/tabs'
+import defaultMdxComponents, { createRelativeLink } from 'fumadocs-ui/mdx'
+import { DocsBody, DocsDescription, DocsPage, DocsTitle } from 'fumadocs-ui/page'
+import { notFound, redirect } from 'next/navigation'
+import { Heading } from '@/components/heading'
+import { source } from '@/loaders/source'
 
-export const revalidate = 86400;
+export const revalidate = 86400
 
 // Helper function to generate the correct GitHub edit path
 function generateGitHubEditPath(slugs: string[], lang: string): string {
-    const langSuffix = lang === 'zh' ? '.zh' : '';
+  const langSuffix = lang === 'zh' ? '.zh' : ''
 
-    // Filter out any undefined, null, or empty values from slugs
-    const cleanSlugs = slugs.filter(slug => slug && typeof slug === 'string' && slug.trim() !== '');
+  // Filter out any undefined, null, or empty values from slugs
+  const cleanSlugs = slugs.filter((slug) => slug && typeof slug === 'string' && slug.trim() !== '')
 
-    if (cleanSlugs.length === 0) {
-        // Fallback for empty slugs
-        return `apps/docs/content/index${langSuffix}.mdx`;
-    }
+  if (cleanSlugs.length === 0) {
+    // Fallback for empty slugs
+    return `apps/docs/content/index${langSuffix}.mdx`
+  }
 
-    // Try different file path patterns and check which one exists
-    const contentBasePath = `content/${cleanSlugs.join('/')}`;
+  // Try different file path patterns and check which one exists
+  const contentBasePath = `content/${cleanSlugs.join('/')}`
 
-    // Pattern 1: Direct file naming (e.g., content/platform/guides/effective-ai-communication.zh.mdx)
-    const directFilePath = `${contentBasePath}${langSuffix}.mdx`;
-    const fullDirectPath = join(process.cwd(), directFilePath);
+  // Pattern 1: Direct file naming (e.g., content/platform/guides/effective-ai-communication.zh.mdx)
+  const directFilePath = `${contentBasePath}${langSuffix}.mdx`
+  const fullDirectPath = join(process.cwd(), directFilePath)
 
-    // Pattern 2: Index file in folder (e.g., content/platform/account/index.zh.mdx)
-    const indexFilePath = `${contentBasePath}/index${langSuffix}.mdx`;
-    const fullIndexPath = join(process.cwd(), indexFilePath);
+  // Pattern 2: Index file in folder (e.g., content/platform/account/index.zh.mdx)
+  const indexFilePath = `${contentBasePath}/index${langSuffix}.mdx`
+  const fullIndexPath = join(process.cwd(), indexFilePath)
 
-    // For GitHub path, we need the full path including apps/docs
-    const githubDirectPath = `apps/docs/${directFilePath}`;
-    const githubIndexPath = `apps/docs/${indexFilePath}`;
+  // For GitHub path, we need the full path including apps/docs
+  const githubDirectPath = `apps/docs/${directFilePath}`
+  const githubIndexPath = `apps/docs/${indexFilePath}`
 
-    // Check which file actually exists
-    if (existsSync(fullDirectPath)) {
-        return githubDirectPath;
-    }
+  // Check which file actually exists
+  if (existsSync(fullDirectPath)) {
+    return githubDirectPath
+  }
 
-    if (existsSync(fullIndexPath)) {
-        return githubIndexPath;
-    }
+  if (existsSync(fullIndexPath)) {
+    return githubIndexPath
+  }
 
-    // Fallback to index format if neither exists (for new files)
-    return githubIndexPath;
+  // Fallback to index format if neither exists (for new files)
+  return githubIndexPath
 }
 
-export default async function Page(props: {
-    params: Promise<{ lang: string; slug?: string[] }>;
-}) {
-    const params = await props.params;
-    const { lang, slug } = params;
+export default async function Page(props: { params: Promise<{ lang: string; slug?: string[] }> }) {
+  const params = await props.params
+  const { lang, slug } = params
 
-    // Redirect root path to platform (default section)
-    if (!slug || slug.length === 0) {
-        redirect(`/${lang}/platform`);
-    }
+  // Redirect root path to platform (default section)
+  if (!slug || slug.length === 0) {
+    redirect(`/${lang}/platform`)
+  }
 
-    const page = source.getPage(slug, lang);
-    if (!page) notFound();
+  const page = source.getPage(slug, lang)
+  if (!page) notFound()
 
-    const title = page.data.title;
-    const description = page.data.description;
+  const title = page.data.title
+  const description = page.data.description
 
-    const MDXContent = page.data.body;
-    const toc = page.data.toc
-        .filter((item) => item.depth <= 3)
-        .map((item) => {
-            return item;
-        });
+  const MDXContent = page.data.body
+  const toc = page.data.toc
+    .filter((item) => item.depth <= 3)
+    .map((item) => {
+      return item
+    })
 
-    return (
-        <DocsPage
-            toc={toc}
-            tableOfContent={{style: "clerk", single: false}}
-            full={false}
-            editOnGithub={{
-                owner: "nextify-limited",
-                repo: "libra",
-                sha: "main",
-                path: generateGitHubEditPath(page.slugs, lang),
-            }}
-        >
-            {title && title !== "Intro" ? <DocsTitle>{title}</DocsTitle> : null}
-            <DocsDescription>{description}</DocsDescription>
-            <DocsBody {...{}}>
-                <MDXContent
-                    components={{
-                        ...defaultMdxComponents,
-                        // this allows you to link to other pages with relative file paths
-                        a: createRelativeLink(source, page),
-                        // you can add other MDX components here
-                        blockquote: Callout,
-                        Tabs,
-                        h1: (props) => <Heading as="h1" {...props} />,
-                        h2: (props) => <Heading as="h2" {...props} />,
-                        h3: (props) => <Heading as="h3" {...props} />,
-                        h4: (props) => <Heading as="h4" {...props} />,
-                        h5: (props) => <Heading as="h5" {...props} />,
-                        h6: (props) => <Heading as="h6" {...props} />,
-                    }}
-                />
-            </DocsBody>
-        </DocsPage>
-    );
+  return (
+    <DocsPage
+      toc={toc}
+      tableOfContent={{ style: 'clerk', single: false }}
+      full={false}
+      editOnGithub={{
+        owner: 'nextify-limited',
+        repo: 'forge',
+        sha: 'main',
+        path: generateGitHubEditPath(page.slugs, lang),
+      }}
+    >
+      {title && title !== 'Intro' ? <DocsTitle>{title}</DocsTitle> : null}
+      <DocsDescription>{description}</DocsDescription>
+      <DocsBody {...{}}>
+        <MDXContent
+          components={{
+            ...defaultMdxComponents,
+            // this allows you to link to other pages with relative file paths
+            a: createRelativeLink(source, page),
+            // you can add other MDX components here
+            blockquote: Callout,
+            Tabs,
+            h1: (props) => <Heading as='h1' {...props} />,
+            h2: (props) => <Heading as='h2' {...props} />,
+            h3: (props) => <Heading as='h3' {...props} />,
+            h4: (props) => <Heading as='h4' {...props} />,
+            h5: (props) => <Heading as='h5' {...props} />,
+            h6: (props) => <Heading as='h6' {...props} />,
+          }}
+        />
+      </DocsBody>
+    </DocsPage>
+  )
 }
 
 export async function generateStaticParams() {
-    return source.generateParams();
+  return source.generateParams()
 }
 
 export async function generateMetadata(props: {
-    params: Promise<{ lang: string; slug?: string[] }>;
+  params: Promise<{ lang: string; slug?: string[] }>
 }) {
-    const params = await props.params;
-    const { lang, slug } = params;
-    const page = source.getPage(slug, lang);
-    if (!page) notFound();
+  const params = await props.params
+  const { lang, slug } = params
+  const page = source.getPage(slug, lang)
+  if (!page) notFound()
 
-    const rootTitle = page.data.title ?? "Home";
-    const title = `${rootTitle} | Libra AI`;
-    const description = page.data.description;
-    return {
-        title,
-        description,
-        openGraph: {
-            type: "website",
-            title,
-            description,
-            siteName: "Libra Docs",
-            url: `https://docs.libra.dev/${lang}/${page.slugs.join("/")}`,
-            images: [
-                {
-                    url: `/og.png?title=${encodeURIComponent(rootTitle)}&description=${encodeURIComponent(description ?? "")}&path=${encodeURIComponent(`${["libra.dev", ...page.slugs].join("/")}`)}`,
-                    width: 1200,
-                    height: 630,
-                    alt: title,
-                },
-            ],
+  const rootTitle = page.data.title ?? 'Home'
+  const title = `${rootTitle} | Forge Docs`
+  const description = page.data.description
+  return {
+    title,
+    description,
+    openGraph: {
+      type: 'website',
+      title,
+      description,
+      siteName: 'Forge Docs',
+      url: `https://docs.forge.tmidev.net/${lang}/${page.slugs.join('/')}`,
+      images: [
+        {
+          url: `/og.png?title=${encodeURIComponent(rootTitle)}&description=${encodeURIComponent(description ?? '')}&path=${encodeURIComponent(`${['forge.tmidev.net', ...page.slugs].join('/')}`)}`,
+          width: 1200,
+          height: 630,
+          alt: title,
         },
-        twitter: {
-            card: "summary_large_image",
-            title,
-            description,
-            creator: "@nextify2024",
-            site: "https://libra.dev",
-        },
-        keywords: ["libra", "open source", "ai", "web coding", "vibe coding"],
-    };
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      creator: '@nextify2024',
+      site: 'https://forge.tmidev.net',
+    },
+    keywords: ['forge', 'tra', 'internal tools', 'ai app builder'],
+  }
 }

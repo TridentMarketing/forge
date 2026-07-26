@@ -21,13 +21,11 @@
 import type { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
-
-    return {
-        rules: {
-            userAgent: '*',
-            allow: '/',
-            disallow: ["/*/dashboard", "/*/dashboard/*", "/*/project/*" ,"/*/project/*"],
-        },
-        sitemap: 'https://libra.dev/sitemap.xml',
-    }
+  // Forge is an internal tool — keep it out of search indexes entirely
+  return {
+    rules: {
+      userAgent: '*',
+      disallow: '/',
+    },
+  }
 }

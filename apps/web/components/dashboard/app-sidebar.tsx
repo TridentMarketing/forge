@@ -23,8 +23,6 @@
 import { authClient } from '@libra/auth/auth-client'
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader } from '@libra/ui/components/sidebar'
 import {
-  CreditCardIcon,
-  FileIcon,
   HelpCircleIcon,
   HomeIcon,
   LayoutDashboardIcon,
@@ -34,9 +32,8 @@ import {
   UsersIcon,
 } from 'lucide-react'
 import type * as React from 'react'
-
+import { siteConfig } from '@/configs/site'
 import * as m from '@/paraglide/messages'
-import { MdForum } from "react-icons/md"
 import Github from '../logos/github'
 import { NavMain } from './nav-main'
 import { NavSecondary } from './nav-secondary'
@@ -73,31 +70,6 @@ interface Organization {
   metadata?: string | null
 }
 
-// Update subscription data type to match API return values
-interface SubscriptionData {
-  id: string
-  plan: string
-  referenceId: string
-  stripeCustomerId?: string | undefined
-  stripeSubscriptionId?: string | undefined
-  status: string | undefined | null
-  periodStart?: Date | null
-  periodEnd?: Date | null
-  cancelAtPeriodEnd?: boolean | null
-  seats?: number | undefined
-  // Add other fields returned by API
-  limits?: Record<string, number> | undefined
-  priceId?: string | undefined
-
-  // Keep other possible fields
-  [key: string]: any
-}
-
-// Define the workspace data structure
-interface WorkspaceData extends Organization {
-  subscription: SubscriptionData | null
-}
-
 // Define user data structure
 interface UserData {
   id: string
@@ -115,9 +87,6 @@ interface ProcessedWorkspace {
   name: string
   logo: React.ElementType
   plan: string
-  planColor: string
-  planGradient: string
-  planBadgeClass: string
   slug?: string
 }
 
@@ -159,23 +128,13 @@ const getNavMainItems = (userRole?: string) => {
 
 const getNavSecondaryItems = () => [
   {
-    title: m['dashboard.sidebar.navigation.docs'](),
-    url: 'https://docs.libra.dev',
-    icon: FileIcon,
-  },
-  {
     title: m['dashboard.sidebar.navigation.github'](),
-    url: 'https://github.com/nextify-limited/libra',
+    url: siteConfig.links.github,
     icon: Github,
   },
   {
     title: m['dashboard.sidebar.navigation.support'](),
-    url: 'https://forum.libra.dev',
-    icon: MdForum,
-  },
-  {
-    title: m['dashboard.sidebar.navigation.help'](),
-    url: 'https://forum.libra.dev/c/9-category/9',
+    url: siteConfig.links.email,
     icon: HelpCircleIcon,
   },
 ]
@@ -191,15 +150,11 @@ export function AppSidebar({
 
   // Use authClient to get organization list - add isPending state
   const { data: organizations = [], isPending: organizationsPending } =
-    // @ts-ignore
+    // @ts-expect-error
     authClient.useListOrganizations()
-  // @ts-ignore
+  // @ts-expect-error
   const { data: activeOrganization } = authClient.useActiveOrganization()
 
-  // Forge has no billing — the Stripe subscription plugin is stubbed out, so
-  // `authClient.subscription.list()` 404s. Skip the fetch entirely; every
-  // workspace just renders as FREE plan (see `workspaces` mapping below).
-  const subscriptions: SubscriptionData[] = []
   const isLoading = organizationsPending
 
   // Extract username from email (part before the @ symbol)
@@ -220,60 +175,15 @@ export function AppSidebar({
     notificationCount: 0,
   }
 
-  // Process workspace data
+  // Process workspace data — Forge is internal, all workspaces are equal
   const workspaces: ProcessedWorkspace[] = (organizations || []).map(
-    (organization: { id: string; name: any; slug: any }) => {
-      // Find matching subscription data
-      const subscription =
-        subscriptions.find(
-          (sub) => sub && sub.referenceId === organization.id && sub.status === 'active'
-        ) || null
-
-      // Choose an appropriate icon
-      const logo = HomeIcon
-
-      // Determine plan type based on subscription
-      let plan = 'FREE'
-
-      if (subscription && subscription.status === 'active') {
-        const subscriptionPlan = subscription.plan
-        if (subscriptionPlan === 'libra pro') {
-          plan = 'PRO'
-        } else if (subscriptionPlan === 'libra max') {
-          plan = 'MAX'
-        }
-      }
-
-      // Add plan colors and icons
-      let planColor = 'text-gray-500'
-      let planGradient = 'from-gray-400 to-gray-600'
-      let planBadgeClass = 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300'
-
-      switch (plan) {
-        case 'PRO':
-          planColor = 'text-blue-500'
-          planGradient = 'from-blue-400 to-blue-600'
-          planBadgeClass = 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300'
-          break
-        case 'MAX':
-          planColor = 'text-purple-500'
-          planGradient = 'from-purple-400 to-purple-600'
-          planBadgeClass =
-            'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300'
-          break
-      }
-
-      return {
-        id: organization.id,
-        name: organization.name,
-        logo,
-        plan,
-        planColor,
-        planGradient,
-        planBadgeClass,
-        slug: organization.slug || undefined,
-      }
-    }
+    (organization: { id: string; name: any; slug: any }) => ({
+      id: organization.id,
+      name: organization.name,
+      logo: HomeIcon,
+      plan: 'INTERNAL',
+      slug: organization.slug || undefined,
+    })
   )
 
   return (
