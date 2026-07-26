@@ -44,4 +44,7 @@ export const env = createEnv({
     NEXT_PUBLIC_SANDBOX_DEFAULT_PROVIDER: process.env['NEXT_PUBLIC_SANDBOX_DEFAULT_PROVIDER'],
     DISPATCH_NAMESPACE_NAME: process.env['DISPATCH_NAMESPACE_NAME'],
   },
+  // CI/CD sets unused secrets to empty strings rather than omitting them;
+  // treat '' the same as unset so optional validators don't reject it.
+  emptyStringAsUndefined: true,
 })

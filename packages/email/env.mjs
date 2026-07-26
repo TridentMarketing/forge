@@ -30,4 +30,7 @@ export const env = createEnv({
     RESEND_FROM: process.env['RESEND_FROM'],
     RESEND_API_KEY: process.env['RESEND_API_KEY'],
   },
+  // CI/CD sets unused secrets to empty strings rather than omitting them;
+  // treat '' the same as unset so optional validators don't reject it.
+  emptyStringAsUndefined: true,
 })

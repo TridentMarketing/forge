@@ -44,6 +44,9 @@ export const env = createEnv({
     TURNSTILE_SECRET_KEY: process.env['TURNSTILE_SECRET_KEY'],
     ADMIN_USER_IDS: process.env['ADMIN_USER_IDS'],
   },
+  // CI/CD sets unused secrets to empty strings rather than omitting them;
+  // treat '' the same as unset so optional validators don't reject it.
+  emptyStringAsUndefined: true,
 })
 
 /**
