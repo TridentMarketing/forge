@@ -34,7 +34,7 @@ import {
   UsersIcon,
 } from 'lucide-react'
 import type * as React from 'react'
-import { useEffect, useState } from 'react'
+
 import * as m from '@/paraglide/messages'
 import { MdForum } from "react-icons/md"
 import Github from '../logos/github'
@@ -196,44 +196,11 @@ export function AppSidebar({
   // @ts-ignore
   const { data: activeOrganization } = authClient.useActiveOrganization()
 
-  // Use useState to store subscription data
-  const [subscriptions, setSubscriptions] = useState<SubscriptionData[]>([])
-  // Add loading state tracking
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-  // Use useEffect to asynchronously fetch subscription data
-  useEffect(() => {
-    // Only fetch subscriptions when organizationsPending is false and organizations has data
-    const orgs = organizations || [] // Ensure orgs is always an array, prevent null
-    if (!organizationsPending && orgs.length > 0) {
-      const fetchAllSubscriptions = async () => {
-        try {
-          const subscriptionPromises = orgs.map((org: any) =>
-            // @ts-ignore
-            authClient.subscription.list({
-              query: {
-                referenceId: org.id,
-              },
-            })
-          )
-          const results = await Promise.all(subscriptionPromises)
-          const allSubscriptions = results.flatMap((result: { data: any }) => result.data || [])
-          setSubscriptions(allSubscriptions)
-          setIsLoading(false)
-        } catch (error) {
-          setSubscriptions([])
-          setIsLoading(false)
-        }
-      }
-      fetchAllSubscriptions()
-    } else if (!organizationsPending && orgs.length === 0) {
-      // Organizations loaded but empty
-      setSubscriptions([])
-      setIsLoading(false)
-    } else {
-      // Organizations still loading, keep loading state
-      setIsLoading(true)
-    }
-  }, [organizations, organizationsPending])
+  // Forge has no billing — the Stripe subscription plugin is stubbed out, so
+  // `authClient.subscription.list()` 404s. Skip the fetch entirely; every
+  // workspace just renders as FREE plan (see `workspaces` mapping below).
+  const subscriptions: SubscriptionData[] = []
+  const isLoading = organizationsPending
 
   // Extract username from email (part before the @ symbol)
   const extractUsernameFromEmail = (email: string): string => {
