@@ -237,7 +237,7 @@ jobs:
             "BETTER_AUTH_SECRET": "${{ secrets.BETTER_AUTH_SECRET }}",
             "BETTER_GITHUB_CLIENT_ID": "${{ secrets.BETTER_GITHUB_CLIENT_ID }}",
             "BETTER_GITHUB_CLIENT_SECRET": "${{ secrets.BETTER_GITHUB_CLIENT_SECRET }}",
-            "GITHUB_ALLOWED_ORG": "${{ secrets.GITHUB_ALLOWED_ORG }}",
+            "ALLOWED_GITHUB_ORG": "${{ secrets.ALLOWED_GITHUB_ORG }}",
             "ANTHROPIC_API_KEY": "${{ secrets.ANTHROPIC_API_KEY }}",
             "E2B_API_KEY": "${{ secrets.E2B_API_KEY }}",
             "POSTGRES_URL": "${{ secrets.POSTGRES_URL }}",

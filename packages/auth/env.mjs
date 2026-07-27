@@ -36,7 +36,7 @@ export const env = createEnv({
     // a member of to sign in — enforced in the custom getUserInfo override in
     // auth-server.ts. Leave unset to disable the org-membership check
     // entirely (any GitHub account can sign in).
-    GITHUB_ALLOWED_ORG: z.string().optional(),
+    ALLOWED_GITHUB_ORG: z.string().optional(),
   },
   runtimeEnv: {
     BETTER_GITHUB_CLIENT_ID: process.env['BETTER_GITHUB_CLIENT_ID'],
@@ -48,7 +48,7 @@ export const env = createEnv({
     CLOUDFLARE_API_TOKEN: process.env['CLOUDFLARE_API_TOKEN'],
     TURNSTILE_SECRET_KEY: process.env['TURNSTILE_SECRET_KEY'],
     ADMIN_USER_IDS: process.env['ADMIN_USER_IDS'],
-    GITHUB_ALLOWED_ORG: process.env['GITHUB_ALLOWED_ORG'],
+    ALLOWED_GITHUB_ORG: process.env['ALLOWED_GITHUB_ORG'],
   },
   // CI/CD sets unused secrets to empty strings rather than omitting them;
   // treat '' the same as unset so optional validators don't reject it.
