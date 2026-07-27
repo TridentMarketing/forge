@@ -92,6 +92,73 @@ async function authBuilder() {
           github: {
             clientId: envs.BETTER_GITHUB_CLIENT_ID as string,
             clientSecret: envs.BETTER_GITHUB_CLIENT_SECRET as string,
+            // Request org read access alongside the defaults (read:user,
+            // user:email) so we can verify org membership below. A plain
+            // GitHub OAuth App (unlike a GitHub App) has no way to restrict
+            // sign-in to an org on GitHub's side — it must be enforced here.
+            scope: envs.GITHUB_ALLOWED_ORG ? ['read:user', 'user:email', 'read:org'] : undefined,
+            // better-auth's getUserInfo type signature doesn't reflect that
+            // returning null is valid runtime behavior (it treats null as
+            // "lookup/authorization failed" and rejects the sign-in) — cast
+            // to satisfy the declared type while keeping the null-return
+            // authorization gate intact.
+            getUserInfo: (envs.GITHUB_ALLOWED_ORG
+              ? async (token: { accessToken?: string }) => {
+                  const headers = {
+                    'User-Agent': 'better-auth',
+                    authorization: `Bearer ${token.accessToken}`,
+                  }
+
+                  const profileRes = await fetch('https://api.github.com/user', { headers })
+                  if (!profileRes.ok) return null
+                  const profile = await profileRes.json() as {
+                    id: number
+                    login: string
+                    name: string | null
+                    email: string | null
+                    avatar_url: string
+                  }
+
+                  // Enforce org membership before doing anything else — returning
+                  // null here makes better-auth reject the sign-in entirely.
+                  const membershipRes = await fetch(
+                    `https://api.github.com/orgs/${envs.GITHUB_ALLOWED_ORG}/members/${profile.login}`,
+                    { headers }
+                  )
+                  // GitHub returns 204 if the user is a member, 404 if not (or if
+                  // the requester lacks visibility — acceptable fail-closed
+                  // behavior for an internal tool).
+                  if (membershipRes.status !== 204) {
+                    log.auth('warn', 'Rejected sign-in: not a member of required GitHub org', {
+                      githubLogin: profile.login,
+                      requiredOrg: envs.GITHUB_ALLOWED_ORG,
+                      operation: 'github_org_check',
+                    })
+                    return null
+                  }
+
+                  const emailsRes = await fetch('https://api.github.com/user/emails', { headers })
+                  const emails = emailsRes.ok
+                    ? (await emailsRes.json() as Array<{ email: string; primary: boolean; verified: boolean }>)
+                    : []
+
+                  const email = profile.email || (emails.find((e) => e.primary) ?? emails[0])?.email
+                  const emailVerified = emails.find((e) => e.email === email)?.verified ?? false
+
+                  if (!email) return null
+
+                  return {
+                    user: {
+                      id: String(profile.id),
+                      name: profile.name || profile.login,
+                      email,
+                      image: profile.avatar_url,
+                      emailVerified,
+                    },
+                    data: profile,
+                  }
+                }
+              : undefined) as unknown as undefined,
           },
         },
         // Enable cross-subdomain cookies for libra.dev and subdomains
